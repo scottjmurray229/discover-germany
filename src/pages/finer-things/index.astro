@@ -1,0 +1,915 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import EmailCapture from '../../components/EmailCapture.astro';
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'The Finer Things', url: '/finer-things/' },
+];
+
+const pageTitle = 'The Finer Things — German Beer, Wine, Coffee, Nightlife & Spirits Guide 2026';
+const pageDescription = 'Riesling and Spätburgunder by the glass, Kaffee und Kuchen tradition, Berlin nightlife, and the best beer, Schnaps, and local spirits across Germany.';
+
+interface TopicSection {
+  id: string;
+  icon: string;
+  title: string;
+  gradient: string;
+  items: { label: string; text: string; link?: string }[];
+}
+
+const topics: TopicSection[] = [
+  {
+    id: 'wine',
+    icon: '🍷',
+    title: 'German Wine',
+    gradient: 'linear-gradient(135deg, #78350F 0%, #D4A574 100%)',
+    items: [
+      { label: 'Riesling', text: 'Germany\'s most celebrated grape — from bone-dry (<em>trocken</em>) to lusciously sweet (<em>Spätlese</em>, <em>Auslese</em>). The Mosel, Rheingau, and Pfalz produce world-class Riesling. A bottle runs <strong>€8–25</strong> at a wine shop and <strong>€5–10 per glass</strong> at a Weinstube. Look for producers like <strong>Dr. Loosen</strong>, <strong>Schloss Johannisberg</strong>, or <strong>Dönnhoff</strong>. The mineral, petrol-tinged dry Rieslings of the Rheingau are legendary.' },
+      { label: 'Spätburgunder (Pinot Noir)', text: 'Germany\'s finest red — elegant, nuanced, with notes of cherry, raspberry, and earth. The Ahr Valley, Baden, and Pfalz produce outstanding examples. Bottles start at <strong>€10–30</strong>. By-the-glass at a wine bar, expect <strong>€6–12</strong>. Often lighter than French Burgundy but equally complex. Try <strong>Meyer-Näkel</strong>, <strong>Friedrich Becker</strong>, or <strong>Bernhard Huber</strong> for world-class Spätburgunder.' },
+      { label: 'Gewürztraminer', text: 'An aromatic, intensely floral white from Pfalz and Baden — lychee, rose petal, and spice notes. Bold and distinctive. A bottle runs <strong>€8–18</strong>. Perfect with Asian-inspired dishes and spicy food. Germany\'s version is often drier and more refined than Alsatian examples. A glass of chilled Gewürztraminer on a terrace along the Rhine is pure pleasure.' },
+      { label: 'Silvaner & Müller-Thurgau', text: 'Franconia\'s signature grapes — Silvaner is earthy, herbal, and mineral-driven, served in the distinctive round <em>Bocksbeutel</em> bottle. <strong>€6–15</strong> per bottle. Müller-Thurgau is lighter, floral, and easy-drinking — the everyday white of Germany. Both pair beautifully with Franconian cuisine — sausages, freshwater fish, and hearty soups.' },
+      { label: 'Wine Regions & Weinstube Culture', text: 'Germany has 13 official wine regions. The <strong>Mosel</strong> has steep slate vineyards along the river. The <strong>Rheingau</strong> produces aristocratic Rieslings. The <strong>Pfalz</strong> is the warmest and most productive. <strong>Franconia</strong> (around Würzburg) specializes in dry Silvaner. A <em>Weinstube</em> (wine tavern) is the heart of German wine culture — cozy, wood-paneled, serving local wines by the glass with seasonal dishes. Expect <strong>€3–8</strong> per glass.' },
+      { label: 'How Germans Actually Drink Wine', text: 'Wine is deeply regional in Germany. Locals drink their region\'s wine — Mosel Riesling in the Mosel, Trollinger in Stuttgart, Silvaner in Franconia. <strong>Weinschorle</strong> (wine spritzer) is hugely popular in summer — white wine mixed with sparkling water. <strong>€3–5</strong> per glass. Germans drink wine with meals, at festivals, and at the <em>Straußwirtschaft</em> (seasonal pop-up wine taverns run by vintners). Wine fests in autumn are major social events — the Wurstmarkt in Bad Dürkheim is the world\'s largest wine festival.' },
+    ],
+  },
+  {
+    id: 'beer',
+    icon: '🍺',
+    title: 'Beer Culture',
+    gradient: 'linear-gradient(135deg, #E8654A 0%, #FB923C 100%)',
+    items: [
+      { label: 'Pilsner & Helles', text: 'The everyday beers of Germany. <strong>Pilsner</strong> (hoppy, crisp, bitter) dominates the north — <strong>Jever</strong>, <strong>Bitburger</strong>, <strong>Warsteiner</strong>. <strong>Helles</strong> (malty, smooth, golden) rules Bavaria — <strong>Augustiner</strong>, <strong>Paulaner</strong>, <strong>Spaten</strong>. A half-liter (<em>Halbe</em>) costs <strong>€3–5</strong> at a beer garden, <strong>€4–7</strong> at a restaurant. Augustiner Helles on draft at a Munich beer garden is one of Germany\'s great pleasures.' },
+      { label: 'Weißbier (Wheat Beer)', text: 'Bavaria\'s signature style — cloudy, fruity, with banana and clove notes from the yeast. Served in tall, curved glasses. <strong>Weihenstephan</strong> (the world\'s oldest brewery, since 1040), <strong>Erdinger</strong>, and <strong>Schneider</strong> are the classic brands. A half-liter runs <strong>€3.50–6</strong>. Traditionally a morning beer — Bavarians drink <em>Weißwurst-Frühstück</em> (white sausage breakfast) with Weißbier before noon. It\'s not a tourist gimmick; locals genuinely do this.' },
+      { label: 'Kölsch & Altbier', text: '<strong>Kölsch</strong> — Cologne\'s protected pale ale, served in small 0.2L glasses (<em>Stangen</em>) from a circular tray (<em>Kranz</em>). The waiter keeps bringing rounds until you cover your glass with a coaster. <strong>€1.50–2.50</strong> per glass. Try <strong>Früh</strong>, <strong>Gaffel</strong>, or <strong>Reissdorf</strong>. <strong>Altbier</strong> is Düsseldorf\'s answer — copper-colored, malty, bitter. There\'s a legendary rivalry between the two cities over which is better.' },
+      { label: 'Biergarten Etiquette', text: 'Beer gardens are sacred in Bavaria — and spreading nationwide. The rules: you <strong>can bring your own food</strong> to the communal tables (but buy drinks there). Sit wherever there\'s room — sharing tables with strangers is expected. Order at the counter or from servers depending on the garden. <strong>A Maß (1 liter)</strong> costs <strong>€8–12</strong> at major beer gardens. <strong>Augustiner Keller</strong>, <strong>Hirschgarten</strong>, and <strong>Viktualienmarkt</strong> in Munich are legendary.' },
+      { label: 'Craft Beer & Regional Styles', text: 'Germany has over <strong>1,500 breweries</strong> — more than any other country. The <em>Reinheitsgebot</em> (Beer Purity Law, 1516) allows only water, hops, malt, and yeast. Regional specialties: <strong>Rauchbier</strong> (smoked beer) from Bamberg at <strong>Schlenkerla</strong>, <strong>Schwarzbier</strong> (black beer) from Thuringia, <strong>Berliner Weisse</strong> with a shot of raspberry or woodruff syrup in Berlin. Craft breweries are booming in Berlin, Hamburg, and Munich.' },
+      { label: 'What Beer Costs', text: '<strong>Beer garden (Maß/1L):</strong> €8–12. <strong>Restaurant (0.5L):</strong> €3.50–6. <strong>Kiosk/Späti:</strong> €1–2 per bottle. <strong>Supermarket:</strong> €0.60–1.50 per bottle. The <em>Pfand</em> (deposit) system means you pay €0.08–0.25 extra per bottle and get it back when you return empties. At festivals like Oktoberfest, expect <strong>€13–15 per Maß</strong>. The cheapest great beer: a €1 Augustiner from a Munich Spätkauf, drunk at the English Garden.' },
+    ],
+  },
+  {
+    id: 'coffee',
+    icon: '☕',
+    title: 'German Café Culture',
+    gradient: 'linear-gradient(135deg, #4A3728 0%, #78350F 100%)',
+    items: [
+      { label: 'Kaffee und Kuchen', text: 'Germany\'s most beloved tradition — afternoon coffee with cake, typically around <strong>3–4 PM</strong>. Head to a <em>Konditorei</em> (pastry shop/café) for <strong>Schwarzwälder Kirschtorte</strong> (Black Forest cake), <strong>Bienenstich</strong> (bee sting cake), or <strong>Käsekuchen</strong> (cheesecake). A slice of cake plus coffee runs <strong>€5–9</strong>. <strong>Café Einstein</strong> in Berlin, <strong>Café Luitpold</strong> in Munich, and traditional Konditoreien in every town keep this tradition alive. It\'s the German equivalent of afternoon tea — civilized, indulgent, and deeply social.' },
+      { label: 'Filter Coffee & Espresso', text: '<strong>Filterkaffee</strong> is still Germany\'s default coffee — strong, dark, and served in generous cups. <strong>€2–3.50</strong> at a café. Espresso culture is strong too, especially in cities — a proper espresso runs <strong>€2–3</strong>. <strong>Milchkaffee</strong> (coffee with lots of hot milk) and <strong>Latte Macchiato</strong> are extremely popular. Germany is the third-largest coffee consumer per capita in the world — they take it seriously.' },
+      { label: 'Berlin Coffee Scene', text: 'Berlin has one of Europe\'s best specialty coffee scenes. <strong>The Barn</strong> in Mitte, <strong>Bonanza Coffee</strong> in Kreuzberg, <strong>Five Elephant</strong> in Kreuzberg, and <strong>Companion Coffee</strong> in Neukölln are world-class roasters. Flat whites, pour-overs, and single-origin espressos run <strong>€3–5</strong>. Berlin\'s café culture is also about lingering — laptops, books, and three-hour sits are completely normal. Many cafés don\'t have WiFi passwords; they just trust you.' },
+      { label: 'Konditorei Tradition', text: 'A <em>Konditorei</em> is a traditional German pastry shop and café — often family-run for generations. Unlike modern coffee shops, Konditoreien focus on pastries and cakes made fresh daily. <strong>Dresdner Eierschecke</strong> (a layered quark cake from Dresden), <strong>Frankfurter Kranz</strong> (buttercream crown cake), and <strong>Nussecken</strong> (nut corners) are regional specialties. Prices are modest — <strong>€2–5</strong> per pastry. Every German town has at least one beloved Konditorei.' },
+      { label: 'Munich & Hamburg Cafés', text: '<strong>Munich</strong> — <strong>Café Frischhut</strong> (legendary for fresh <em>Schmalznudeln</em> donuts), <strong>Man versus Machine</strong> (specialty coffee), and the grand cafés around Odeonsplatz. <strong>Hamburg</strong> — <strong>Speicherstadt Kaffeerösterei</strong> in the warehouse district, <strong>Nord Coast Coffee</strong>, and the café scene around Sternschanze. Hamburg has a long coffee trading history — the Speicherstadt was once the world\'s largest coffee storage facility.' },
+      { label: 'Coffee Prices at a Glance', text: '<strong>Filterkaffee:</strong> €2–3.50. <strong>Espresso:</strong> €2–3. <strong>Latte/Cappuccino:</strong> €3–4.50. <strong>Specialty pour-over:</strong> €3.50–5. <strong>Kaffee und Kuchen (coffee + cake):</strong> €5–9. The golden rule: tourist areas charge more, but even in the most central locations, coffee rarely exceeds €5. Chain bakeries like <strong>Balzac Coffee</strong> and <strong>Einstein Kaffee</strong> offer consistent quality. For the cheapest good coffee, hit a traditional <em>Bäckerei</em> (bakery) — filter coffee for €1.50 with a fresh <em>Brötchen</em>.' },
+    ],
+  },
+  {
+    id: 'nightlife',
+    icon: '🌃',
+    title: 'German Nightlife',
+    gradient: 'linear-gradient(135deg, #4C1D95 0%, #E8654A 100%)',
+    items: [
+      { label: 'Berlin: The Techno Capital', link: '/destinations/berlin/', text: '<strong>Berlin</strong> is the undisputed nightlife capital of Europe. <strong>Berghain</strong> — the world\'s most famous techno club in a former power plant — runs from Saturday night to Monday morning. <strong>Tresor</strong>, <strong>Watergate</strong>, and <strong>KitKat Club</strong> are legendary. Cover charges: <strong>€10–20</strong>. Cocktails: <strong>€8–14</strong>. Berlin nightlife starts at midnight and the city truly comes alive after 2 AM. Dress code: all black, no photos, and don\'t ask about the door policy — just be authentic.' },
+      { label: 'Hamburg: Reeperbahn & St. Pauli', link: '/destinations/hamburg/', text: 'The <strong>Reeperbahn</strong> in St. Pauli is Germany\'s most famous entertainment strip — a mile of bars, clubs, live music, and theater. <strong>Große Freiheit</strong> street is where the Beatles played their early Hamburg gigs. <strong>Molotow</strong>, <strong>Uebel & Gefährlich</strong>, and <strong>Mojo Club</strong> host live music and DJs. Beer: <strong>€3–5</strong>. Cocktails: <strong>€8–12</strong>. The fish market on Sunday mornings (starting 5 AM) is the traditional post-party destination.' },
+      { label: 'Munich: Beer Halls & Beyond', link: '/destinations/munich/', text: '<strong>Hofbräuhaus</strong> is the world\'s most famous beer hall — tourist-heavy but a genuine experience with a <em>Maß</em> (€12) and live oompah music. For a more local experience, try <strong>Augustiner Bräustuben</strong> or <strong>Schelling-Salon</strong>. Munich\'s upscale bar scene thrives around Maximilianstraße — cocktails run <strong>€12–18</strong>. <strong>P1</strong> and <strong>Heart</strong> are the see-and-be-seen clubs. Munich nightlife is more polished than Berlin — better dressed, earlier hours.' },
+      { label: 'Cologne: Bar Scene & Karneval', link: '/destinations/cologne/', text: 'Cologne\'s <strong>Belgisches Viertel</strong> (Belgian Quarter) and the <strong>Kwartier Latäng</strong> around Zülpicher Straße are the nightlife hubs — packed with bars, brewhouses, and live music venues. Kölsch beer in the Altstadt brewhouses (<strong>Früh</strong>, <strong>Gaffel</strong>) is a must. During <strong>Karneval</strong> (February/March), the entire city becomes a days-long street party. Cocktails: <strong>€7–12</strong>. Cologne is the friendliest nightlife city in Germany — strangers become instant friends.' },
+      { label: 'Dresden, Leipzig & Eastern Gems', text: '<strong>Leipzig</strong> has an incredible underground scene — the <strong>Spinnerei</strong> arts district and clubs in the Plagwitz neighborhood draw Berlin comparisons. <strong>Dresden\'s Neustadt</strong> is packed with bars and has one of the highest bar-per-capita ratios in Germany. The <strong>Bunte Republik Neustadt</strong> festival in June turns the entire district into an open-air party. Eastern German cities are significantly cheaper than Munich or Hamburg — beers from <strong>€2.50</strong>.' },
+      { label: 'The Feierabend: Germany\'s Evening Ritual', text: '<em>Feierabend</em> literally means "celebration evening" — the cherished transition from work to leisure. Germans gather at beer gardens, Kneipen (pubs), or wine taverns starting around <strong>5–6 PM</strong>. It\'s social, relaxed, and food-focused. Unlike southern Europe, Germans eat dinner earlier (<strong>6–8 PM</strong>), so the evening drinking begins after dinner. The Kneipe (neighborhood pub) is the social anchor of German life — regulars have their <em>Stammtisch</em> (reserved table). Expect to spend <strong>€10–20</strong> for a relaxed Feierabend evening.' },
+    ],
+  },
+  {
+    id: 'spirits',
+    icon: '🥃',
+    title: 'German Spirits',
+    gradient: 'linear-gradient(135deg, #1A2332 0%, #4A3728 50%, #D4A574 100%)',
+    items: [
+      { label: 'Schnaps & Obstler', text: 'German <em>Schnaps</em> (fruit brandy) is a centuries-old tradition — clear, unaged spirits distilled from local fruits. <strong>Obstler</strong> (apple/pear), <strong>Kirschwasser</strong> (cherry), <strong>Zwetschgenwasser</strong> (plum), and <strong>Williamsbirne</strong> (pear) are the classics. A shot costs <strong>€3–6</strong> at a restaurant. Quality artisanal Schnaps from the Black Forest or Bavaria runs <strong>€15–35</strong> per bottle. Always served ice-cold as a digestif after hearty meals — the tradition of a <em>Verdauungsschnaps</em> (digestive Schnaps) is taken very seriously.' },
+      { label: 'Jägermeister & Kräuterlikör', text: '<strong>Jägermeister</strong> — Germany\'s most famous export spirit — is a complex herbal liqueur with 56 botanicals. At home it\'s sipped ice-cold as a digestif, not as a party shot. <strong>€2–4</strong> per shot. Other <em>Kräuterlikör</em> (herbal liqueurs): <strong>Underberg</strong> (bitter, medicinal, sold in tiny bottles), <strong>Ramazzotti</strong> (Italian-influenced), and <strong>Killepitsch</strong> from Düsseldorf. Regional herbal bitters are found across Germany — every region has its own recipe.' },
+      { label: 'Glühwein & Feuerzangenbowle', text: '<strong>Glühwein</strong> (mulled wine) is the soul of German Christmas markets — red wine heated with cinnamon, cloves, star anise, orange peel, and sugar. <strong>€3–5</strong> per mug at markets (you pay a €2–3 deposit for the collectible ceramic mug). <strong>Feuerzangenbowle</strong> is the dramatic version — a rum-soaked sugar cone is lit on fire above a pot of mulled wine, dripping caramelized sugar into the drink. Best experienced at the Nuremberg or Cologne Christmas markets.' },
+      { label: 'German Beer-Based Spirits', text: '<strong>Berliner Weisse mit Schuss</strong> — sour wheat beer served with a shot of raspberry (<em>Himbeersirup</em>) or woodruff (<em>Waldmeistersirup</em>) syrup. <strong>€3–5</strong>. <strong>Radler</strong> — beer mixed 50/50 with lemon soda, the ultimate summer refresher. <strong>€2.50–4</strong>. <strong>Diesel/Krefelder</strong> — beer mixed with cola, popular with younger drinkers. These aren\'t cocktails — they\'re legitimate German drinking traditions with their own devoted followings.' },
+      { label: 'Regional Specialties', text: '<strong>Kirschwasser</strong> from the Black Forest — cherry brandy that goes into authentic Schwarzwälder Kirschtorte. <strong>Doppelkorn</strong> from northern Germany — a grain spirit served ice-cold. <strong>Kümmel</strong> (caraway liqueur) from the north. <strong>Enzian</strong> — gentian root spirit from the Alps, intensely bitter and medicinal. <strong>Bärwurz</strong> from Bavaria — a rare alpine herbal spirit. Each region guards its recipes fiercely. Ask for the local specialty at any traditional Gasthof — you\'ll discover something unique.' },
+      { label: 'The Verdauungsschnaps Ritual', text: 'After a heavy German meal — Schweinshaxe, Sauerbraten, or a full Bavarian feast — the waiter will ask if you\'d like a <em>Verdauungsschnaps</em> (digestive Schnaps). Saying yes is the right move. A cold shot of Obstler, Kirschwasser, or herbal bitter costs <strong>€3–6</strong>. In Bavaria, it\'s practically mandatory after a meal at a traditional Wirtshaus. The ritual: raise your glass, say <em>Prost!</em>, maintain eye contact, and drink. The Verdauungsschnaps is Germany\'s way of saying "the meal was a success."' },
+    ],
+  },
+];
+---
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  pageType="destination"
+  breadcrumbs={breadcrumbs}
+>
+  <!-- Hero -->
+  <header class="ft-hero">
+    <div class="ft-hero-gradient"></div>
+    <div class="ft-hero-noise"></div>
+    <div class="ft-hero-content">
+      <h1 class="ft-hero-title">The Finer Things</h1>
+      <p class="ft-hero-subtitle">Riesling by the glass in a Rhine Valley Weinstube, Kaffee und Kuchen in a Berlin cafe, a Maß of Helles at a Munich Biergarten, craft cocktails in Hamburg, and the best Schnaps, Obstler, and local spirits across every region.</p>
+      <div class="ft-hero-meta">
+        <div class="ft-hero-meta-item">
+          <span class="ft-hero-meta-label">Topics</span>
+          <span class="ft-hero-meta-value">5</span>
+        </div>
+        <div class="ft-hero-meta-item">
+          <span class="ft-hero-meta-label">Nightlife Cities</span>
+          <span class="ft-hero-meta-value">5</span>
+        </div>
+        <div class="ft-hero-meta-item">
+          <span class="ft-hero-meta-label">Drinks Covered</span>
+          <span class="ft-hero-meta-value">30+</span>
+        </div>
+      </div>
+    </div>
+    <div class="ft-scroll-hint">Scroll<br />&#8595;</div>
+  </header>
+
+  <!-- Breadcrumb -->
+  <div class="container-content">
+    <Breadcrumb items={breadcrumbs} />
+  </div>
+
+  <!-- Personal intro -->
+  <section class="ft-personal ft-reveal">
+    <div class="container-content">
+      <blockquote class="ft-personal-quote">
+        <p>German drinking culture is not about getting drunk — it's about connection. A Milchkaffee at a corner Konditorei in the morning, a glass of Riesling with Schnitzel at lunch, a Feierabendbier at sunset, then a Verdauungsschnaps offered freely after dinner. Every drink has its place and its time. I've traveled through wine regions across France, Spain, and California, and nothing matches the everyday warmth of German drinking culture. A €4 glass of Riesling at a random Weinstube in the Mosel would cost $15 back home — and it's usually better. The best part? The Gemütlichkeit. Germans don't just pour you a drink; they welcome you into their world.</p>
+        <cite>— Scott</cite>
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- Quick Facts Strip -->
+  <section class="ft-quickfacts ft-reveal">
+    <div class="container-content">
+      <div class="ft-quickfacts-bar">
+        <div class="ft-quickfact">
+          <span class="ft-quickfact-label">Drinking Age</span>
+          <span class="ft-quickfact-value">16 (beer/wine)</span>
+        </div>
+        <div class="ft-quickfact-divider"></div>
+        <div class="ft-quickfact">
+          <span class="ft-quickfact-label">Beer (0.5L)</span>
+          <span class="ft-quickfact-value">€3–5</span>
+        </div>
+        <div class="ft-quickfact-divider"></div>
+        <div class="ft-quickfact">
+          <span class="ft-quickfact-label">Riesling Glass</span>
+          <span class="ft-quickfact-value">€4–8</span>
+        </div>
+        <div class="ft-quickfact-divider"></div>
+        <div class="ft-quickfact">
+          <span class="ft-quickfact-label">Kaffee</span>
+          <span class="ft-quickfact-value">€2.50–4</span>
+        </div>
+        <div class="ft-quickfact-divider"></div>
+        <div class="ft-quickfact">
+          <span class="ft-quickfact-label">Tipping</span>
+          <span class="ft-quickfact-value">Not expected</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Nav -->
+  <section class="ft-quicknav ft-reveal">
+    <div class="container-content">
+      <div class="ft-quicknav-grid">
+        {topics.map((t) => (
+          <a href={`#${t.id}`} class="ft-quicknav-chip">
+            <span class="ft-quicknav-icon">{t.icon}</span>
+            <span class="ft-quicknav-label">{t.title.split(' ').slice(0, 2).join(' ')}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Topic Sections -->
+  {topics.map((topic) => (
+    <section class="ft-topic ft-reveal" id={topic.id}>
+      <div class="container-content">
+        <div class="ft-topic-header" style={`background: ${topic.gradient};`}>
+          <div class="ft-topic-header-inner">
+            <span class="ft-topic-icon">{topic.icon}</span>
+            <h2 class="ft-topic-title">{topic.title}</h2>
+            <span class="ft-topic-count">{topic.items.length} tips</span>
+          </div>
+        </div>
+
+        <div class="ft-tip-grid">
+          {topic.items.map((item) => (
+            <div class="ft-tip-card">
+              <h3 class="ft-tip-label">{item.label}</h3>
+              <p class="ft-tip-text" set:html={item.text} />
+              {item.link && (
+                <a href={item.link} class="ft-tip-link">Explore {item.label.split(':')[0]} &rarr;</a>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  ))}
+
+  <!-- Scott's Pro Tips -->
+  <section class="ft-protips ft-reveal">
+    <div class="container-content">
+      <div class="ft-protips-card">
+        <h2 class="ft-protips-heading">Scott's Pro Tips</h2>
+        <div class="scott-tips">
+          <ul>
+            <li><strong>Biergarten Strategy:</strong> Munich's Biergärten in Englischer Garten and Augustiner Keller offer the best beer deals in Germany — a Maß (1L) of Helles runs €10–12 and you can bring your own food (Brotzeit). Arrive by 5pm for the best tables. In Berlin, skip the tourist spots around Alexanderplatz and head to the Kneipen in Kreuzberg instead.</li>
+            <li><strong>Coffee Savings:</strong> German coffee prices are reasonable everywhere. A Kaffee runs €2.50–4 at most cafes. The real savings: skip the tourist-trap cafes at Marienplatz or Brandenburg Gate (€5–7) and walk one street back for the same quality at €2.50. Local Konditorei often serve excellent filter coffee with a slice of Kuchen for under €6.</li>
+            <li><strong>Wine Shopping:</strong> Buy wine at a <em>Weinhandlung</em> (wine shop) or directly from producers if you're in wine country like the Mosel, Rheingau, or Pfalz. Supermarkets carry excellent wines for €5–15 that would cost $30+ in the US. For bringing bottles home, pack them in your checked luggage wrapped in clothes or use wine bottle protectors.</li>
+            <li><strong>Nightlife Safety:</strong> German cities are very safe at night, but watch for pickpockets in crowded nightlife areas — especially in Berlin's Warschauer Strasse, Hamburg's Reeperbahn, and Munich's Schwabing. Use licensed taxis or ride-hailing apps like FreeNow. Never leave drinks unattended.</li>
+            <li><strong>Tipping at Bars:</strong> Tipping is not expected in Germany but is appreciated. Some places add a service charge. At a cocktail bar, rounding up or leaving €1–2 is generous. Don't tip like you're in the US — 5–10% is considered very generous in Germany.</li>
+            <li><strong>Best Value Evening:</strong> A half-liter of local beer (€3–5) with a plate of Brotzeit — pretzels, Obatzda, cold cuts, pickles (€8–12) — at a neighborhood Gasthaus. Total: €12–18 for a genuine German evening. Add a Verdauungsschnaps (often complimentary) and you've had a complete German drinking experience for the price of a single cocktail in New York.</li>
+            <li><strong>Bringing Wine & Spirits Home:</strong> US customs allows 1 liter duty-free per person, but you can bring more and pay a small duty (usually $1–3 per additional bottle). Pack wine in the center of your checked bag wrapped in clothes, or use padded wine travel bags. Mosel Riesling and Obstler (fruit brandy) make excellent gifts — we've brought back dozens of bottles with zero breakage.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Affiliate Disclosure -->
+  <div class="container-content ft-reveal" style="padding-bottom: 0;">
+    <p class="ft-affiliate-disclosure">Some links on this page are affiliate links — we earn a small commission if you purchase through them, at no extra cost to you. We only recommend gear we personally use. <a href="/legal/affiliate-disclosure/">Full disclosure</a>.</p>
+  </div>
+
+  <!-- Bottom CTA -->
+  <section class="ft-cta-section ft-reveal">
+    <div class="container-content">
+      <div class="ft-cta-card">
+        <h2 class="ft-cta-heading">Plan Your Night Out</h2>
+        <p class="ft-cta-text">Tell our AI planner your dates and interests — it'll build a custom itinerary with the best bars, nightlife districts, and local experiences.</p>
+        <a href="/plan/" class="ft-cta-button">Start Planning &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Email Capture -->
+  <div class="container-content ft-reveal" style="padding-bottom: var(--space-6);">
+    <EmailCapture
+      leadMagnet="Get Our Free German Wine & Spirits Guide"
+      description="Wine regions, beer culture, Kaffee und Kuchen traditions, and nightlife across Germany — packed into one PDF."
+      bullets={[
+        'Best wine bars in Berlin, Munich, Hamburg, and the Rhine Valley',
+        'Complete guide to German wine, beer, Schnaps, and Obstler',
+        'Coffee culture — Konditorei, filter coffee, and Berlin roasteries',
+        'Nightlife districts and Biergärten city by city',
+      ]}
+      guideTag="pillar-finer-things"
+    />
+  </div>
+
+  <!-- Cross-links -->
+  <section class="ft-crosslinks ft-reveal">
+    <div class="container-content">
+      <h3 class="ft-crosslinks-heading">Explore More</h3>
+      <div class="ft-crosslinks-grid">
+        <a href="/cuisine/" class="ft-crosslink-card">
+          <span class="ft-crosslink-icon">&#127860;</span>
+          <span class="ft-crosslink-label">Food & Cuisine</span>
+          <span class="ft-crosslink-desc">35 dishes across 27 destinations, region by region</span>
+        </a>
+        <a href="/festivals/" class="ft-crosslink-card">
+          <span class="ft-crosslink-icon">&#127914;</span>
+          <span class="ft-crosslink-label">Festival Calendar</span>
+          <span class="ft-crosslink-desc">32 festivals across 29 destinations, month by month</span>
+        </a>
+        <a href="/practical/" class="ft-crosslink-card">
+          <span class="ft-crosslink-icon">&#127890;</span>
+          <span class="ft-crosslink-label">Travel Tips</span>
+          <span class="ft-crosslink-desc">Visa, money, transport, and cultural etiquette</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+</BaseLayout>
+
+<!-- Scroll Reveal Observer (uses ft-reveal/ft-visible to avoid Tailwind .visible conflict) -->
+<script>
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const ftRevealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add('ft-visible');
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+    );
+    document.querySelectorAll('.ft-reveal').forEach((el) => ftRevealObserver.observe(el));
+  } else {
+    document.querySelectorAll('.ft-reveal').forEach((el) => el.classList.add('ft-visible'));
+  }
+</script>
+
+<style>
+  /* ================================================================
+     HERO — Warm amber/whiskey gradient
+     ================================================================ */
+  .ft-hero {
+    position: relative;
+    min-height: 55vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 5rem var(--space-6) 60px;
+    overflow: hidden;
+  }
+
+  .ft-hero-gradient {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(135deg, #1A2332 0%, #78350F 40%, #D4A574 100%);
+  }
+
+  .ft-hero-noise {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
+    pointer-events: none;
+  }
+
+  .ft-hero-content {
+    position: relative;
+    z-index: 3;
+    max-width: 720px;
+  }
+
+  .ft-hero-title {
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: var(--weight-bold);
+    color: #fff;
+    line-height: 1.1;
+    margin: 0 0 var(--space-3);
+  }
+
+  .ft-hero-subtitle {
+    font-size: clamp(1rem, 2vw, 1.15rem);
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.6;
+    margin: 0 0 var(--space-5);
+    max-width: 580px;
+  }
+
+  .ft-hero-meta {
+    display: flex;
+    gap: var(--space-5);
+    flex-wrap: wrap;
+  }
+
+  .ft-hero-meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .ft-hero-meta-label {
+    font-size: 0.65rem;
+    font-weight: var(--weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  .ft-hero-meta-value {
+    font-size: 1.1rem;
+    font-weight: var(--weight-bold);
+    color: #fff;
+  }
+
+  .ft-scroll-hint {
+    position: absolute;
+    bottom: 16px;
+    right: var(--space-6);
+    z-index: 3;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: rgba(255, 255, 255, 0.35);
+    text-align: center;
+    animation: ftBounce 2s ease-in-out infinite;
+  }
+
+  @keyframes ftBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(6px); }
+  }
+
+  /* ================================================================
+     PERSONAL INTRO
+     ================================================================ */
+  .ft-personal {
+    padding-block: var(--space-8);
+  }
+
+  .ft-personal-quote {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: var(--space-6) var(--space-8);
+    border-left: 4px solid #D4A574;
+    background: var(--color-sky);
+    border-radius: 0 12px 12px 0;
+  }
+
+  .ft-personal-quote p {
+    font-size: var(--text-body);
+    color: var(--color-heading);
+    line-height: var(--leading-body);
+    font-style: italic;
+    margin-bottom: var(--space-3);
+  }
+
+  .ft-personal-quote cite {
+    font-size: var(--text-caption);
+    color: #78350F;
+    font-weight: var(--weight-semibold);
+    font-style: normal;
+  }
+
+  /* ================================================================
+     QUICK FACTS STRIP
+     ================================================================ */
+  .ft-quickfacts {
+    padding: 0 0 var(--space-4);
+  }
+
+  .ft-quickfacts-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-5);
+    background: var(--color-sky);
+    border-radius: 16px;
+    padding: var(--space-4) var(--space-6);
+    flex-wrap: wrap;
+  }
+
+  .ft-quickfact {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    text-align: center;
+  }
+
+  .ft-quickfact-label {
+    font-size: 0.65rem;
+    font-weight: var(--weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-slate);
+  }
+
+  .ft-quickfact-value {
+    font-size: 1.05rem;
+    font-weight: var(--weight-extrabold);
+    color: var(--color-deep-night);
+  }
+
+  .ft-quickfact-divider {
+    width: 1px;
+    height: 28px;
+    background: rgba(0, 0, 0, 0.1);
+  }
+
+  /* ================================================================
+     QUICK NAV — Jump-to chips
+     ================================================================ */
+  .ft-quicknav {
+    padding: 0 0 var(--space-6);
+  }
+
+  .ft-quicknav-grid {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+  }
+
+  .ft-quicknav-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    background: var(--color-white);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 40px;
+    font-size: 0.8rem;
+    font-weight: var(--weight-medium);
+    color: #4A5568;
+    text-decoration: none;
+    transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  }
+
+  .ft-quicknav-chip:hover {
+    background: #FDF8F0;
+    color: #78350F;
+    transform: translateY(-2px);
+  }
+
+  .ft-quicknav-icon {
+    font-size: 1rem;
+  }
+
+  .ft-quicknav-label {
+    white-space: nowrap;
+  }
+
+  /* ================================================================
+     TOPIC SECTION
+     ================================================================ */
+  .ft-topic {
+    padding: var(--space-4) 0 var(--space-6);
+    scroll-margin-top: 80px;
+  }
+
+  .ft-topic-header {
+    position: relative;
+    border-radius: 20px;
+    padding: var(--space-5) var(--space-6);
+    margin-bottom: var(--space-5);
+    overflow: hidden;
+  }
+
+  .ft-topic-header-inner {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+  }
+
+  .ft-topic-icon {
+    font-size: 1.6rem;
+  }
+
+  .ft-topic-title {
+    font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+    font-weight: var(--weight-bold);
+    color: #fff;
+    margin: 0;
+    line-height: 1.2;
+    flex: 1;
+    min-width: 200px;
+  }
+
+  .ft-topic-count {
+    font-size: 0.7rem;
+    font-weight: var(--weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(255, 255, 255, 0.55);
+    background: rgba(255, 255, 255, 0.1);
+    padding: 4px 12px;
+    border-radius: 20px;
+  }
+
+  /* ================================================================
+     TIP CARDS
+     ================================================================ */
+  .ft-tip-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-4);
+  }
+
+  @media (max-width: 768px) {
+    .ft-tip-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .ft-tip-card {
+    background: var(--color-white);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 14px;
+    padding: var(--space-5);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .ft-tip-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  }
+
+  .ft-tip-label {
+    font-size: 0.95rem;
+    font-weight: var(--weight-bold);
+    color: var(--color-deep-night);
+    margin: 0 0 var(--space-2);
+    line-height: 1.3;
+  }
+
+  .ft-tip-text {
+    font-size: 0.85rem;
+    color: var(--color-slate);
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  .ft-tip-text :global(a) {
+    color: #78350F;
+    font-weight: var(--weight-semibold);
+    text-decoration: underline;
+    text-decoration-color: rgba(120, 53, 15, 0.3);
+    text-underline-offset: 2px;
+    transition: text-decoration-color 0.2s ease;
+  }
+
+  .ft-tip-text :global(a:hover) {
+    text-decoration-color: #78350F;
+  }
+
+  .ft-tip-link {
+    display: inline-block;
+    margin-top: var(--space-3);
+    font-size: 0.8rem;
+    font-weight: var(--weight-semibold);
+    color: #78350F;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .ft-tip-link:hover {
+    color: #D4A574;
+  }
+
+  /* ================================================================
+     SCOTT'S PRO TIPS
+     ================================================================ */
+  .ft-protips {
+    padding: var(--space-4) 0 var(--space-6);
+  }
+
+  .ft-protips-card {
+    background: linear-gradient(135deg, #1A2332 0%, #2D3748 100%);
+    border-radius: 20px;
+    padding: var(--space-6) var(--space-6);
+  }
+
+  .ft-protips-heading {
+    font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+    font-weight: var(--weight-bold);
+    color: #D4A574;
+    margin: 0 0 var(--space-4);
+  }
+
+  .ft-protips-card .scott-tips {
+    background: transparent;
+    border-left: none;
+    border-radius: 0;
+    padding: 0;
+    margin: 0;
+  }
+
+  .ft-protips-card .scott-tips ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  .ft-protips-card .scott-tips li {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.65;
+    padding-left: var(--space-4);
+    position: relative;
+  }
+
+  .ft-protips-card .scott-tips li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 8px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #D4A574;
+  }
+
+  .ft-protips-card .scott-tips :global(strong) {
+    color: #D4A574;
+    font-weight: var(--weight-semibold);
+  }
+
+  .ft-protips-card .scott-tips :global(a) {
+    color: #FB923C;
+    font-weight: var(--weight-semibold);
+    text-decoration: underline;
+    text-decoration-color: rgba(251, 146, 60, 0.4);
+    text-underline-offset: 2px;
+    transition: text-decoration-color 0.2s ease;
+  }
+
+  .ft-protips-card .scott-tips :global(a:hover) {
+    text-decoration-color: #FB923C;
+  }
+
+  /* ================================================================
+     AFFILIATE DISCLOSURE
+     ================================================================ */
+  .ft-affiliate-disclosure {
+    font-size: 0.75rem;
+    color: #4A5568;
+    line-height: 1.5;
+    text-align: center;
+    padding: var(--space-4) var(--space-6);
+    background: var(--color-sky);
+    border-radius: 10px;
+    margin-bottom: var(--space-4);
+  }
+
+  .ft-affiliate-disclosure a {
+    color: var(--color-ocean-teal);
+    text-decoration: underline;
+  }
+
+  /* ================================================================
+     BOTTOM CTA
+     ================================================================ */
+  .ft-cta-section {
+    padding: var(--space-6) 0 var(--space-8);
+  }
+
+  .ft-cta-card {
+    background: linear-gradient(135deg, #78350F 0%, #D4A574 100%);
+    border-radius: 20px;
+    padding: var(--space-8) var(--space-6);
+    text-align: center;
+    color: #fff;
+  }
+
+  .ft-cta-heading {
+    font-size: clamp(1.3rem, 3vw, 1.8rem);
+    font-weight: var(--weight-bold);
+    margin: 0 0 var(--space-3);
+    color: #fff;
+  }
+
+  .ft-cta-text {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.85);
+    max-width: 520px;
+    margin: 0 auto var(--space-5);
+    line-height: 1.6;
+  }
+
+  .ft-cta-button {
+    display: inline-block;
+    background: var(--color-deep-night);
+    color: #D4A574;
+    font-size: 0.9rem;
+    font-weight: var(--weight-semibold);
+    padding: 12px 28px;
+    border-radius: 40px;
+    text-decoration: none;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+
+  .ft-cta-button:hover {
+    background: #0D1117;
+    transform: translateY(-2px);
+  }
+
+  /* ================================================================
+     CROSS-LINKS
+     ================================================================ */
+  .ft-crosslinks {
+    padding: 0 0 var(--space-10);
+  }
+
+  .ft-crosslinks-heading {
+    font-size: 1.1rem;
+    font-weight: var(--weight-bold);
+    color: var(--color-deep-night);
+    text-align: center;
+    margin: 0 0 var(--space-4);
+  }
+
+  .ft-crosslinks-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-4);
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 640px) {
+    .ft-crosslinks-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .ft-crosslink-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-5) var(--space-4);
+    background: var(--color-white);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 16px;
+    text-decoration: none;
+    color: inherit;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .ft-crosslink-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  }
+
+  .ft-crosslink-icon {
+    font-size: 1.8rem;
+  }
+
+  .ft-crosslink-label {
+    font-size: 0.95rem;
+    font-weight: var(--weight-bold);
+    color: #1A2332;
+  }
+
+  .ft-crosslink-desc {
+    font-size: 0.78rem;
+    color: #4A5568;
+    line-height: 1.4;
+  }
+
+  /* ================================================================
+     SCROLL REVEAL (page-specific, avoids Tailwind .visible conflict)
+     ================================================================ */
+  .ft-reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .ft-reveal.ft-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @keyframes ftRevealFallback {
+    to { opacity: 1; transform: none; }
+  }
+
+  .ft-reveal {
+    animation: ftRevealFallback 0s 3s forwards;
+  }
+
+  /* ================================================================
+     RESPONSIVE
+     ================================================================ */
+  @media (max-width: 640px) {
+    .ft-hero {
+      min-height: 50vh;
+      padding: 0 var(--space-4) 40px;
+    }
+
+    .ft-hero-meta {
+      gap: var(--space-4);
+    }
+
+    .ft-scroll-hint {
+      display: none;
+    }
+
+    .ft-topic-header {
+      padding: var(--space-4) var(--space-4);
+    }
+
+    .ft-quickfacts-bar {
+      gap: var(--space-3);
+      padding: var(--space-3) var(--space-4);
+    }
+
+    .ft-quickfact-divider {
+      display: none;
+    }
+
+    .ft-quickfact {
+      min-width: 80px;
+    }
+
+    .ft-personal-quote {
+      padding: var(--space-4) var(--space-5);
+    }
+
+    .ft-protips-card {
+      padding: var(--space-5) var(--space-4);
+    }
+  }
+</style>

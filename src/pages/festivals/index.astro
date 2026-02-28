@@ -1,0 +1,1302 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import EmailCapture from '../../components/EmailCapture.astro';
+import FAQ from '../../components/FAQ.astro';
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Festival Calendar', url: '/festivals/' },
+];
+
+const pageTitle = 'German Festival Calendar 2026';
+const pageDescription = 'From Oktoberfest in Munich to Karneval in Cologne and Christmas markets across the country — time your trip to the celebrations that define Germany.';
+
+const festivals = [
+  {
+    month: 'Jan',
+    monthIndex: 0,
+    name: 'Dreikönigsmarkt (Epiphany Markets)',
+    destination: 'Throughout Germany',
+    slug: 'munich',
+    description: 'January 6 marks Three Kings\' Day — the end of the Christmas season. Star singers (Sternsinger) go door-to-door in costume, collecting for charity and blessing homes. In Bavaria and the Rhineland, special Dreikönigskuchen (Three Kings Cake) is served.',
+  },
+  {
+    month: 'Feb',
+    monthIndex: 1,
+    name: 'Karneval in Cologne',
+    destination: 'Cologne & Rhineland',
+    slug: 'cologne',
+    description: 'Germany\'s biggest carnival and one of Europe\'s wildest. The "Fifth Season" kicks off November 11 but peaks in February with Weiberfastnacht (Women\'s Carnival), Rosenmontag (Rose Monday) parade, and non-stop street parties. Over a million revelers flood Cologne\'s streets in elaborate costumes.',
+  },
+  {
+    month: 'Feb',
+    monthIndex: 1,
+    name: 'Fasching in Munich',
+    destination: 'Munich & Bavaria',
+    slug: 'munich',
+    description: 'Bavaria\'s version of carnival features masked balls, costume parades, and Krapfen (jam doughnuts) everywhere. The Viktualienmarkt hosts a traditional dance by the market women. The festivities climax on Faschingsdienstag (Shrove Tuesday) before Lent begins.',
+  },
+  {
+    month: 'Mar',
+    monthIndex: 2,
+    name: 'Starkbierzeit (Strong Beer Season)',
+    destination: 'Munich',
+    slug: 'munich',
+    description: 'Munich\'s "fifth season" — a two-week strong beer festival at the Paulaner am Nockherberg brewery. Monks originally brewed Starkbier (strong beer) as liquid bread during Lent. Today it\'s a beloved tradition with Bavarian food, music, and beers over 7% ABV.',
+  },
+  {
+    month: 'Mar',
+    monthIndex: 2,
+    name: 'Leipzig Book Fair',
+    destination: 'Leipzig',
+    slug: 'leipzig',
+    description: 'One of Europe\'s oldest and largest book fairs, dating back to the 17th century. Over 250,000 visitors browse publishers, attend readings, and enjoy the Manga-Comic-Con convention. Leipzig\'s literary heritage makes this a major cultural event.',
+  },
+  {
+    month: 'Apr',
+    monthIndex: 3,
+    name: 'Easter Markets (Ostermärkte)',
+    destination: 'Throughout Germany',
+    slug: 'nuremberg',
+    description: 'German Easter markets feature hand-painted eggs, spring decorations, and traditional crafts. Nuremberg, Leipzig, and Munich host the largest. Easter bonfires (Osterfeuer) blaze across northern Germany on Easter Saturday — a pre-Christian tradition that persists today.',
+  },
+  {
+    month: 'Apr',
+    monthIndex: 3,
+    name: 'Walpurgisnacht (May Eve)',
+    destination: 'Harz Mountains & nationwide',
+    slug: 'hamburg',
+    description: 'On the night of April 30, Germans celebrate Walpurgisnacht — when, according to legend, witches gather on the Brocken peak in the Harz Mountains. Bonfires, costume parties, and folklore events take place across northern and central Germany. A festive transition from winter to spring.',
+  },
+  {
+    month: 'May',
+    monthIndex: 4,
+    name: 'Maifest (May Day)',
+    destination: 'Throughout Germany',
+    slug: 'munich',
+    description: 'May 1 is celebrated with Maypole (Maibaum) raising ceremonies across Bavaria, outdoor festivals, and Biergarten openings. In the Rhineland, young men leave small birch trees decorated with ribbons at the doors of women they admire. Every village has its own May celebration.',
+  },
+  {
+    month: 'May',
+    monthIndex: 4,
+    name: 'Hafengeburtstag (Port Anniversary)',
+    destination: 'Hamburg',
+    slug: 'hamburg',
+    description: 'Hamburg celebrates the anniversary of its port with the world\'s largest port festival — three days of ship parades, tall ships, live music, and fireworks along the Elbe River. Over a million visitors watch the grand parade of ships. A spectacular waterfront celebration.',
+  },
+  {
+    month: 'Jun',
+    monthIndex: 5,
+    name: 'Kiel Week (Kieler Woche)',
+    destination: 'Kiel & Northern Germany',
+    slug: 'hamburg',
+    description: 'The world\'s largest sailing event and northern Germany\'s biggest summer festival. Nine days of regattas, live music on multiple stages, international food, and maritime culture. Over 3 million visitors flock to Kiel\'s waterfront each June.',
+  },
+  {
+    month: 'Jun',
+    monthIndex: 5,
+    name: 'Fête de la Musique',
+    destination: 'Berlin & nationwide',
+    slug: 'berlin',
+    description: 'On June 21, the longest day of the year, free concerts take over streets, parks, and courtyards across Germany. Berlin hosts hundreds of performances from classical to electronic. Every neighborhood becomes a stage — a celebration of music in all its forms.',
+  },
+  {
+    month: 'Jul',
+    monthIndex: 6,
+    name: 'Rheingau Musik Festival',
+    destination: 'Rhine Valley',
+    slug: 'rhine-valley',
+    description: 'One of Europe\'s premier classical music festivals, with over 150 concerts in castles, monasteries, and wineries along the Rhine. World-class performers in extraordinary settings — from the Eberbach Monastery to Wiesbaden\'s Kurhaus. Runs through August.',
+  },
+  {
+    month: 'Jul',
+    monthIndex: 6,
+    name: 'Schlossfestspiele Heidelberg',
+    destination: 'Heidelberg',
+    slug: 'heidelberg',
+    description: 'Open-air theater, opera, and concert performances in the atmospheric courtyard of Heidelberg Castle. The ruined castle walls create one of Germany\'s most romantic performance venues. Runs from June through August with drama, musicals, and classical music.',
+  },
+  {
+    month: 'Aug',
+    monthIndex: 7,
+    name: 'Weinfest (Wine Festivals)',
+    destination: 'Rhine Valley & wine regions',
+    slug: 'rhine-valley',
+    description: 'Germany\'s wine regions come alive with festivals throughout August and September. The Dürkheimer Wurstmarkt (world\'s largest wine festival) in Bad Dürkheim, the Rüdesheimer Weinfest on the Rhine, and countless village wine festivals offer tastings, live music, and regional cuisine.',
+  },
+  {
+    month: 'Aug',
+    monthIndex: 7,
+    name: 'Shooting Festivals (Schützenfeste)',
+    destination: 'Throughout Germany',
+    slug: 'cologne',
+    description: 'Traditional marksmen\'s festivals with parades, fairgrounds, and beer tents are a centuries-old German tradition. Hannover\'s Schützenfest is the world\'s largest. Düsseldorf\'s Größte Kirmes am Rhein combines Schützenfest with a massive riverside funfair.',
+  },
+  {
+    month: 'Sep',
+    monthIndex: 8,
+    name: 'Oktoberfest',
+    destination: 'Munich',
+    slug: 'munich',
+    description: 'The world\'s most famous beer festival — 16 days of beer tents, Bavarian brass bands, traditional dress (Dirndl and Lederhosen), fairground rides, and over 6 million visitors on the Theresienwiese. Runs from late September into early October. Book accommodation months ahead. A bucket-list experience.',
+  },
+  {
+    month: 'Sep',
+    monthIndex: 8,
+    name: 'Berlin Festival of Lights',
+    destination: 'Berlin',
+    slug: 'berlin',
+    description: 'Berlin\'s iconic landmarks — Brandenburg Gate, Berlin Cathedral, TV Tower, Unter den Linden — are transformed with spectacular light projections and installations. Two weeks of free open-air art that turns the city into a glowing gallery.',
+  },
+  {
+    month: 'Oct',
+    monthIndex: 9,
+    name: 'Tag der Deutschen Einheit (Unity Day)',
+    destination: 'Nationwide',
+    slug: 'berlin',
+    description: 'October 3 celebrates German reunification in 1990. The main celebrations rotate between German cities each year, featuring concerts, exhibitions, and fireworks. In Berlin, the Brandenburg Gate area hosts the largest events. A national holiday with regional festivities.',
+  },
+  {
+    month: 'Oct',
+    monthIndex: 9,
+    name: 'Erntedankfest (Harvest Festival)',
+    destination: 'Throughout Germany',
+    slug: 'nuremberg',
+    description: 'German Thanksgiving celebrations in early October feature church services, harvest processions with decorated carts, and traditional food. The Erntedankfest on the Bückeberg near Hamelin is one of the largest. In Bavaria, rural communities parade through villages with harvest crowns.',
+  },
+  {
+    month: 'Nov',
+    monthIndex: 10,
+    name: 'St. Martin\'s Day',
+    destination: 'Rhineland & nationwide',
+    slug: 'cologne',
+    description: 'On November 11, children carry lanterns through the streets in evening processions, singing St. Martin\'s songs. The tradition is especially vibrant in the Rhineland and Catholic regions. Bonfires, Martinsgänse (roast goose), and Weckmänner (sweet bread men) complete the celebration.',
+  },
+  {
+    month: 'Nov',
+    monthIndex: 10,
+    name: 'Jazz Festival Berlin',
+    destination: 'Berlin',
+    slug: 'berlin',
+    description: 'Berlin\'s premier jazz festival brings international and German artists to the Haus der Berliner Festspiele and venues across the city. Four days of world-class jazz, from traditional to avant-garde, in one of Europe\'s most vibrant music cities.',
+  },
+  {
+    month: 'Dec',
+    monthIndex: 11,
+    name: 'Christmas Markets (Weihnachtsmärkte)',
+    destination: 'Nationwide',
+    slug: 'nuremberg',
+    description: 'Germany\'s most beloved tradition — over 2,500 Christmas markets across the country. Nuremberg\'s Christkindlesmarkt is the most famous, with Dresden\'s Striezelmarkt the oldest (since 1434). Cologne has seven markets around the cathedral. Glühwein, Lebkuchen, wooden ornaments, and festive atmosphere from late November through December.',
+  },
+  {
+    month: 'Dec',
+    monthIndex: 11,
+    name: 'Silvester (New Year\'s Eve)',
+    destination: 'Berlin & nationwide',
+    slug: 'berlin',
+    description: 'Germans welcome the New Year with massive celebrations. Berlin\'s party at the Brandenburg Gate is one of Europe\'s largest open-air New Year\'s events. Fireworks fill the sky across every city. Traditions include Bleigießen (lead pouring for fortunes), Berliner Pfannkuchen, and Dinner for One on TV.',
+  },
+];
+
+
+const months = [
+  'January', 'February', 'March', 'April', 'May', 'June',
+  'July', 'August', 'September', 'October', 'November', 'December',
+];
+
+const monthGradients = [
+  'linear-gradient(135deg, #E8654A 0%, #D4A853 100%)',
+  'linear-gradient(135deg, #C05299 0%, #E8654A 100%)',
+  'linear-gradient(135deg, #4CAF50 0%, #8BC34A 100%)',
+  'linear-gradient(135deg, #FF9800 0%, #FFC107 100%)',
+  'linear-gradient(135deg, #9E9E9E 0%, #BDBDBD 100%)',
+  'linear-gradient(135deg, #0D7377 0%, #4DB6AC 100%)',
+  'linear-gradient(135deg, #1565C0 0%, #42A5F5 100%)',
+  'linear-gradient(135deg, #6A1B9A 0%, #AB47BC 100%)',
+  'linear-gradient(135deg, #9E9E9E 0%, #BDBDBD 100%)',
+  'linear-gradient(135deg, #E65100 0%, #FF9800 100%)',
+  'linear-gradient(135deg, #BF360C 0%, #E8654A 100%)',
+  'linear-gradient(135deg, #1A2332 0%, #C62828 0%, #FFD54F 100%)',
+];
+
+// Extract first color from each month gradient for map markers
+const monthColors = [
+  '#E8654A', '#C05299', '#4CAF50', '#FF9800', '#9E9E9E', '#0D7377',
+  '#1565C0', '#6A1B9A', '#9E9E9E', '#E65100', '#BF360C', '#C62828',
+];
+
+// Geo coordinates for festival map markers
+const geoLookup: Record<string, { lat: number; lng: number; label: string }> = {
+  berlin: { lat: 52.5200, lng: 13.4050, label: 'Berlin' },
+  munich: { lat: 48.1351, lng: 11.5820, label: 'Munich' },
+  hamburg: { lat: 53.5511, lng: 9.9937, label: 'Hamburg' },
+  cologne: { lat: 50.9375, lng: 6.9603, label: 'Cologne' },
+  nuremberg: { lat: 49.4521, lng: 11.0767, label: 'Nuremberg' },
+  heidelberg: { lat: 49.3988, lng: 8.6724, label: 'Heidelberg' },
+  leipzig: { lat: 51.3397, lng: 12.3731, label: 'Leipzig' },
+  'rhine-valley': { lat: 50.0890, lng: 7.9110, label: 'Rhine Valley' },
+};
+
+// Build map markers — group festivals by slug (one marker per location)
+const festBySlug = new Map<string, typeof festivals>();
+festivals.forEach(f => {
+  const arr = festBySlug.get(f.slug) || [];
+  arr.push(f);
+  festBySlug.set(f.slug, arr);
+});
+
+const festMapMarkers = Array.from(festBySlug.entries())
+  .map(([slug, fests]) => {
+    const geo = geoLookup[slug];
+    if (!geo) return null;
+    return {
+      lat: geo.lat,
+      lng: geo.lng,
+      label: geo.label,
+      slug,
+      color: monthColors[fests[0].monthIndex],
+      url: `/destinations/${slug}/`,
+      festivals: fests.map(f => ({
+        name: f.name,
+        month: f.month,
+        destination: f.destination,
+      })),
+    };
+  })
+  .filter(Boolean);
+
+// Video lookup for festival cards — prefer preview (smallest), then break-1, then hero
+const festCardVideos: Record<string, string> = {};
+// Destinations with preview videos
+['berlin','munich','hamburg','cologne','nuremberg','heidelberg','leipzig','rhine-valley']
+  .forEach(s => festCardVideos[s] = `/videos/destinations/${s}-preview.mp4`);
+
+// Fallback cycle for any slug not in lookup
+const fallbackVideos = Object.values(festCardVideos);
+
+// 10 generic festival clips — cycle 3x across 32 events
+const festGenericClips = Array.from({ length: 10 }, (_, i) => `/videos/pillar/festival-card-${i + 1}.mp4`);
+
+---
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  pageType="destination"
+  breadcrumbs={breadcrumbs}
+>
+  <!-- Hero -->
+  <header class="fest-hero">
+    <video class="fest-hero-video" autoplay muted loop playsinline preload="metadata">
+      <source src="/videos/pillar/festivals-hero.mp4" type="video/mp4" />
+    </video>
+    <div class="fest-hero-gradient"></div>
+    <div class="fest-hero-noise"></div>
+
+    <div class="fest-hero-content">
+      <h1 class="fest-hero-title">German Festival Calendar 2026</h1>
+      <p class="fest-hero-subtitle">From Oktoberfest in Munich to Karneval in Cologne and enchanting Christmas markets across the country — time your trip to the celebrations that define Germany.</p>
+      <div class="fest-hero-meta">
+        <div class="fest-hero-meta-item">
+          <span class="fest-hero-meta-label">Festivals</span>
+          <span class="fest-hero-meta-value">25</span>
+        </div>
+        <div class="fest-hero-meta-item">
+          <span class="fest-hero-meta-label">Destinations</span>
+          <span class="fest-hero-meta-value">10+</span>
+        </div>
+        <div class="fest-hero-meta-item">
+          <span class="fest-hero-meta-label">Season</span>
+          <span class="fest-hero-meta-value">Year-Round</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="fest-scroll-hint">Scroll<br />&#8595;</div>
+  </header>
+
+  <!-- Breadcrumb -->
+  <div class="container-content">
+    <Breadcrumb items={breadcrumbs} />
+  </div>
+
+  <!-- Personal intro -->
+  <section class="fest-personal reveal">
+    <div class="container-content">
+      <blockquote class="fest-personal-quote">
+        <p>Germans celebrate everything — beer, wine, harvests, history, music, and things that simply deserve a party. Every region has its own traditions, every city has festivals that go back centuries, and the Christmas market season transforms the entire country. We try to plan around at least one festival every trip — they're the fastest way to experience the real Germany, not the tourist version. The Biergärten, the bratwurst, the brass bands, the Glühwein — nothing compares.</p>
+        <cite>— Scott</cite>
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- View Toggle -->
+  <div class="container-content" style="padding-top: var(--space-2); padding-bottom: var(--space-4);">
+    <div class="fest-view-toggle">
+      <button class="fest-toggle-btn active" id="festBtnCalendar">Calendar</button>
+      <button class="fest-toggle-btn" id="festBtnMap">Map</button>
+    </div>
+  </div>
+
+  <!-- Calendar Grid -->
+  <div id="festCalendarView">
+  <section class="fest-calendar reveal">
+    <div class="container-content">
+      <h2 class="fest-section-heading">Festivals by Month</h2>
+      <p class="fest-section-sub">Click any festival to explore its destination. Hover for a preview.</p>
+
+      <div class="fest-month-grid">
+        {months.map((monthName, i) => {
+          const monthFestivals = festivals.filter(f => f.monthIndex === i);
+          return (
+            <div class="fest-month-card reveal">
+              <div class="fest-month-header">
+                <span class="fest-month-name">{monthName}</span>
+                {monthFestivals.length > 0 && (
+                  <span class="fest-month-count">{monthFestivals.length}</span>
+                )}
+              </div>
+              <div class="fest-month-body">
+                {monthFestivals.length > 0 ? (
+                  monthFestivals.map((fest) => {
+                    const idx = festivals.indexOf(fest);
+                    const destVideo = festCardVideos[fest.slug] || fallbackVideos[idx % fallbackVideos.length];
+                    const festVideo = festGenericClips[idx % festGenericClips.length];
+                    return (
+                    <a href={`/destinations/${fest.slug}/`} class="fest-entry">
+                      <div class="fest-entry-media" style={`background: ${monthGradients[i]};`}>
+                        <video class="fest-card-video fest-vid-dest" muted loop playsinline preload="none" data-src={destVideo}></video>
+                        <video class="fest-card-video fest-vid-fest" muted loop playsinline preload="none" data-src={festVideo} style="opacity:0;"></video>
+                        <div class="fest-card-scrim"></div>
+                        <div class="fest-entry-media-label">{fest.month}</div>
+                      </div>
+                      <div class="fest-entry-info">
+                        <div class="fest-entry-name">{fest.name}</div>
+                        <div class="fest-entry-destination">{fest.destination}</div>
+                      </div>
+                      <div class="fest-entry-overlay">
+                        <p class="fest-entry-desc">{fest.description}</p>
+                        <span class="fest-entry-cta">Explore {fest.destination} &rarr;</span>
+                      </div>
+                    </a>
+                  );})
+                ) : (
+                  <div class="fest-month-empty">No major festivals</div>
+                )}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+
+  </div><!-- /festCalendarView -->
+
+  <!-- Map View (hidden by default) -->
+  <div id="festMapView" style="display:none;">
+    <section style="padding: var(--space-4) 0 var(--space-8);">
+      <div class="container-content">
+        <div class="fest-map-container" id="festMapContainer">
+          <div class="fest-map-tooltip" id="festMapTooltip">
+            <div class="fest-map-tooltip-name" id="festTooltipName"></div>
+            <div class="fest-map-tooltip-fests" id="festTooltipFests"></div>
+          </div>
+          <div id="festLeafletMap"></div>
+          <div class="fest-map-legend">
+            <div class="fest-map-legend-item"><div class="fest-map-legend-dot" style="background:var(--color-warm-coral);"></div>Festival location</div>
+            <div class="fest-map-legend-note">Colored by month &middot; Click to explore destination</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Bottom CTA -->
+  <section class="fest-cta-section reveal">
+    <div class="container-content">
+      <div class="fest-cta-card">
+        <h2 class="fest-cta-heading">Plan Your Festival Trip</h2>
+        <p class="fest-cta-text">Let our AI travel planner build a custom itinerary around the festivals you want to see — with flights, hotels, and day-by-day schedules.</p>
+        <a href="/plan/" class="fest-cta-button">Start Planning &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <FAQ items={[
+    { question: "What are the biggest festivals in Germany?", answer: "Oktoberfest in Munich is the world's most famous beer festival, drawing over 6 million visitors. Karneval in Cologne is one of Europe's wildest street parties. Germany's Christmas markets — especially Nuremberg, Dresden, and Cologne — are legendary. Kiel Week is the world's largest sailing event. And hundreds of wine festivals happen across the Rhine and Mosel regions each summer and fall." },
+    { question: "When is Oktoberfest?", answer: "Oktoberfest runs for 16 days, typically from mid-September to the first Sunday in October. Despite the name, most of it takes place in September. In 2026, it runs from September 19 to October 4. Book accommodation 3-6 months ahead — hotels fill up fast and prices triple. The Theresienwiese fairgrounds are walking distance from Munich's central station." },
+    { question: "How do I plan a trip around a German festival?", answer: "Pick your festival, then book accommodation 2-4 months early — prices spike and rooms sell out during Oktoberfest, Karneval, and Christmas market season. Train tickets can also sell out for holiday weekends. Arrive a day or two before the main event to soak up the atmosphere. Use our AI Trip Planner at /plan/ to build a festival-centered itinerary with transport and hotel bookings." },
+    { question: "Are German festivals safe for tourists?", answer: "German festivals are very safe and locals warmly welcome visitors. The main concern is pickpocketing in dense crowds — especially at Oktoberfest and large Karneval parades. Keep valuables secure and use a crossbody bag. At beer festivals, pace yourself and stay hydrated. Christmas markets can be crowded on weekends — visit on weekday evenings for a more relaxed atmosphere." },
+    { question: "What are German Christmas markets like?", answer: "Weihnachtsmärkte are Germany's most beloved tradition — wooden stalls selling handcrafted ornaments, Lebkuchen (gingerbread), roasted almonds, and Glühwein (mulled wine). Nuremberg's Christkindlesmarkt is the most famous, Dresden's Striezelmarkt is the oldest (since 1434), and Cologne has seven markets around the cathedral. Most run from late November through December 23. Entry is free." },
+    { question: "What is Karneval in Cologne like?", answer: "Cologne's Karneval is one of Europe's biggest street parties. The 'Fifth Season' kicks off on November 11 but peaks during the final week before Lent. Weiberfastnacht (Women's Carnival Thursday) officially launches the street festivities. The Rosenmontag (Rose Monday) parade features elaborate floats and throws candy into the crowds. Costumes are essential — you'll stand out without one. Over a million people celebrate in the streets." },
+  ]} />
+
+  <!-- Email Capture -->
+  <div class="container-content reveal" style="padding-bottom: var(--space-6);">
+    <EmailCapture
+      leadMagnet="Get Our Free Festival Trip Planner"
+      description="A month-by-month PDF guide to German festivals — with travel logistics, accommodation tips, and what to expect at each celebration."
+      bullets={[
+        'All major festivals with exact dates and locations',
+        'Train connections and where to stay for each event',
+        'Insider tips — best viewing spots, what to wear, what to bring',
+        'Suggested multi-festival itineraries by region',
+      ]}
+      guideTag="pillar-festivals"
+    />
+  </div>
+
+  <!-- Cross-links -->
+  <section class="fest-crosslinks reveal">
+    <div class="container-content">
+      <h3 class="fest-crosslinks-heading">Explore More</h3>
+      <div class="fest-crosslinks-grid">
+        <a href="/cuisine/" class="fest-crosslink-card">
+          <span class="fest-crosslink-icon">&#127860;</span>
+          <span class="fest-crosslink-label">Food & Cuisine</span>
+          <span class="fest-crosslink-desc">Regional German dishes with where to find the best version</span>
+        </a>
+        <a href="/destinations/" class="fest-crosslink-card">
+          <span class="fest-crosslink-icon">&#127965;</span>
+          <span class="fest-crosslink-label">All Destinations</span>
+          <span class="fest-crosslink-desc">Every city and region we've explored with honest reviews</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<!-- Scroll Reveal Observer -->
+<script>
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add('visible');
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+    );
+    document.querySelectorAll('.reveal').forEach((el) => revealObserver.observe(el));
+  } else {
+    document.querySelectorAll('.reveal').forEach((el) => el.classList.add('visible'));
+  }
+</script>
+
+<!-- Festival card video lazy-load + dual-video cycling -->
+<script>
+  const festMediaEls = document.querySelectorAll('.fest-entry-media');
+  const festSwapTimers = new Map<Element, number>();
+
+  function festLoadAndPlay(video: HTMLVideoElement) {
+    if (!video.src && video.dataset.src) {
+      video.src = video.dataset.src;
+    }
+    video.play().catch(() => {});
+  }
+
+  function festStartCycle(media: Element) {
+    const dest = media.querySelector<HTMLVideoElement>('.fest-vid-dest');
+    const fest = media.querySelector<HTMLVideoElement>('.fest-vid-fest');
+    if (!dest || !fest) return;
+
+    festLoadAndPlay(dest);
+    festLoadAndPlay(fest);
+
+    // Start with dest visible, swap every 6 seconds
+    let showingDest = true;
+    const timer = window.setInterval(() => {
+      showingDest = !showingDest;
+      dest.style.opacity = showingDest ? '1' : '0';
+      fest.style.opacity = showingDest ? '0' : '1';
+    }, 6000);
+    festSwapTimers.set(media, timer);
+  }
+
+  function festStopCycle(media: Element) {
+    const timer = festSwapTimers.get(media);
+    if (timer) {
+      clearInterval(timer);
+      festSwapTimers.delete(media);
+    }
+    media.querySelectorAll<HTMLVideoElement>('.fest-card-video').forEach(v => v.pause());
+  }
+
+  const festObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          festStartCycle(entry.target);
+        } else {
+          festStopCycle(entry.target);
+        }
+      });
+    },
+    { threshold: 0.2, rootMargin: '100px' }
+  );
+  festMediaEls.forEach((el) => festObserver.observe(el));
+</script>
+
+<!-- View Toggle Logic -->
+<script>
+  const festBtnCalendar = document.getElementById('festBtnCalendar');
+  const festBtnMap = document.getElementById('festBtnMap');
+  const festCalendarView = document.getElementById('festCalendarView');
+  const festMapView = document.getElementById('festMapView');
+
+  function festShowCalendar() {
+    festCalendarView!.style.display = '';
+    festMapView!.style.display = 'none';
+    festBtnCalendar!.classList.add('active');
+    festBtnMap!.classList.remove('active');
+  }
+
+  function festShowMap() {
+    festCalendarView!.style.display = 'none';
+    festMapView!.style.display = '';
+    festBtnCalendar!.classList.remove('active');
+    festBtnMap!.classList.add('active');
+    if (window.festMap) {
+      window.festMap.invalidateSize();
+    }
+  }
+
+  festBtnCalendar?.addEventListener('click', festShowCalendar);
+  festBtnMap?.addEventListener('click', festShowMap);
+</script>
+
+<!-- Leaflet Map for Festivals -->
+<script is:inline define:vars={{ markers: festMapMarkers }}>
+  // Load Leaflet CSS
+  if (!document.getElementById('leaflet-css')) {
+    var lnk = document.createElement('link');
+    lnk.id = 'leaflet-css';
+    lnk.rel = 'stylesheet';
+    lnk.href = 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css';
+    document.head.appendChild(lnk);
+  }
+
+  function initFestMap() {
+    var mapEl = document.getElementById('festLeafletMap');
+    if (!mapEl || typeof L === 'undefined') return;
+
+    var map = L.map(mapEl, {
+      center: [51.0, 10.5],
+      zoom: 6,
+      scrollWheelZoom: false,
+      minZoom: 5,
+      maxZoom: 12,
+      maxBounds: [[46, 5], [56, 16]],
+      zoomControl: false,
+      attributionControl: false,
+    });
+
+    window.festMap = map;
+
+    L.control.attribution({ prefix: false }).addTo(map);
+    L.control.zoom({ position: 'topright' }).addTo(map);
+
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+      attribution: '\u00a9 <a href="https://www.openstreetmap.org/copyright">OSM</a> \u00a9 <a href="https://carto.com/">CARTO</a>',
+      maxZoom: 19,
+    }).addTo(map);
+
+    function makeCircle(color, size, stroke) {
+      return L.divIcon({
+        className: '',
+        html: '<div style="width:' + size + 'px;height:' + size + 'px;border-radius:50%;background:' + color + ';border:2px solid ' + stroke + ';box-shadow:0 0 6px rgba(0,0,0,0.3);cursor:pointer;"></div>',
+        iconSize: [size, size],
+        iconAnchor: [size / 2, size / 2],
+      });
+    }
+
+    var tooltip = document.getElementById('festMapTooltip');
+    var tooltipName = document.getElementById('festTooltipName');
+    var tooltipFests = document.getElementById('festTooltipFests');
+    var container = document.getElementById('festMapContainer');
+
+    markers.forEach(function(m) {
+      var size = m.festivals.length > 1 ? 18 : 14;
+      var icon = makeCircle(m.color, size, '#ffffff');
+      var marker = L.marker([m.lat, m.lng], { icon: icon, title: m.label }).addTo(map);
+
+      marker.on('mouseover', function(e) {
+        if (tooltipName) tooltipName.textContent = m.label;
+        if (tooltipFests) {
+          tooltipFests.innerHTML = m.festivals.map(function(f) {
+            return '<div class="fest-map-tooltip-fest"><span class="fest-map-tooltip-month">' + f.month + '</span> ' + f.name + '</div>';
+          }).join('');
+        }
+        if (tooltip) tooltip.classList.add('fest-tooltip-visible');
+        if (container && tooltip) {
+          var pt = e.containerPoint;
+          tooltip.style.left = (pt.x + 12) + 'px';
+          tooltip.style.top = (pt.y - 10) + 'px';
+        }
+      });
+
+      marker.on('mouseout', function() {
+        if (tooltip) tooltip.classList.remove('fest-tooltip-visible');
+      });
+
+      marker.on('click', function() {
+        window.location.href = m.url;
+      });
+    });
+  }
+
+  // Load Leaflet JS
+  if (typeof L !== 'undefined') {
+    initFestMap();
+  } else {
+    var lscript = document.createElement('script');
+    lscript.src = 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js';
+    lscript.onload = initFestMap;
+    document.head.appendChild(lscript);
+  }
+</script>
+
+<style>
+  /* ================================================================
+     HERO — Festival gradient (warm coral → gold → deep night)
+     ================================================================ */
+  .fest-hero {
+    position: relative;
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 5rem var(--space-6) 60px;
+    overflow: hidden;
+  }
+
+  .fest-hero-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+  }
+
+  .fest-hero-gradient {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.15) 40%, rgba(0,0,0,0.55) 100%);
+  }
+
+  .fest-hero-noise {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+  }
+
+  .fest-hero-content {
+    position: relative;
+    z-index: 3;
+    max-width: 720px;
+  }
+
+  .fest-hero-title {
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: var(--weight-bold);
+    color: #fff;
+    line-height: 1.1;
+    margin: 0 0 var(--space-3);
+  }
+
+  .fest-hero-subtitle {
+    font-size: clamp(1rem, 2vw, 1.15rem);
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.6;
+    margin: 0 0 var(--space-5);
+    max-width: 580px;
+  }
+
+  .fest-hero-meta {
+    display: flex;
+    gap: var(--space-5);
+    flex-wrap: wrap;
+  }
+
+  .fest-hero-meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .fest-hero-meta-label {
+    font-size: 0.65rem;
+    font-weight: var(--weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  .fest-hero-meta-value {
+    font-size: 1.1rem;
+    font-weight: var(--weight-bold);
+    color: #fff;
+  }
+
+  .fest-scroll-hint {
+    position: absolute;
+    bottom: 16px;
+    right: var(--space-6);
+    z-index: 3;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: rgba(255, 255, 255, 0.35);
+    text-align: center;
+    animation: festBounce 2s ease-in-out infinite;
+  }
+
+  @keyframes festBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(6px); }
+  }
+
+  /* ================================================================
+     CALENDAR GRID
+     ================================================================ */
+  .fest-calendar {
+    padding: var(--space-10) 0 var(--space-8);
+  }
+
+  .fest-section-heading {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: var(--weight-bold);
+    color: var(--color-deep-night);
+    margin: 0 0 var(--space-2);
+    text-align: center;
+  }
+
+  .fest-section-sub {
+    font-size: 1rem;
+    color: var(--color-slate);
+    text-align: center;
+    margin: 0 0 var(--space-8);
+  }
+
+  .fest-month-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-5);
+  }
+
+  @media (max-width: 1024px) {
+    .fest-month-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .fest-month-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* ================================================================
+     MONTH CARD
+     ================================================================ */
+  .fest-month-card {
+    background: var(--color-white);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: box-shadow 0.3s ease;
+  }
+
+  .fest-month-card:hover {
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  }
+
+  .fest-month-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-3) var(--space-4);
+    background: var(--color-sky);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+  }
+
+  .fest-month-name {
+    font-size: 0.9rem;
+    font-weight: var(--weight-bold);
+    color: var(--color-deep-night);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .fest-month-count {
+    font-size: 0.7rem;
+    font-weight: var(--weight-semibold);
+    color: var(--color-warm-coral);
+    background: rgba(232, 101, 74, 0.1);
+    padding: 2px 8px;
+    border-radius: 12px;
+  }
+
+  .fest-month-body {
+    padding: var(--space-3);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    min-height: 80px;
+  }
+
+  .fest-month-empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    font-size: 0.85rem;
+    color: var(--color-slate);
+    opacity: 0.5;
+    font-style: italic;
+  }
+
+  /* ================================================================
+     FESTIVAL ENTRY (within month card)
+     ================================================================ */
+  .fest-entry {
+    position: relative;
+    display: block;
+    border-radius: 12px;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+  }
+
+  .fest-entry:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+  }
+
+  .fest-entry-media {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    padding: var(--space-2);
+    overflow: hidden;
+  }
+
+  .fest-card-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+    transition: opacity 0.8s ease;
+  }
+
+  .fest-card-scrim {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.1) 40%, rgba(0,0,0,0.45) 100%);
+  }
+
+  .fest-entry-media-label {
+    position: relative;
+    z-index: 2;
+    font-size: 0.6rem;
+    font-weight: var(--weight-bold);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(255, 255, 255, 0.7);
+    background: rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    padding: 2px 8px;
+    border-radius: 6px;
+  }
+
+  .fest-entry-info {
+    padding: var(--space-2) var(--space-3) var(--space-3);
+    background: var(--color-white);
+  }
+
+  .fest-entry-name {
+    font-size: 0.85rem;
+    font-weight: var(--weight-bold);
+    color: var(--color-deep-night);
+    margin-bottom: 2px;
+    line-height: 1.3;
+  }
+
+  .fest-entry-destination {
+    font-size: 0.72rem;
+    color: var(--color-ocean-teal);
+    font-weight: var(--weight-medium);
+  }
+
+  /* Hover overlay */
+  .fest-entry-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(26, 35, 50, 0.93);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: var(--space-4);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .fest-entry:hover .fest-entry-overlay {
+    opacity: 1;
+  }
+
+  .fest-entry-desc {
+    font-size: 0.78rem;
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.55;
+    margin: 0 0 var(--space-3);
+  }
+
+  .fest-entry-cta {
+    font-size: 0.72rem;
+    font-weight: var(--weight-semibold);
+    color: var(--color-warm-coral);
+    letter-spacing: 0.02em;
+  }
+
+  /* ================================================================
+     BOTTOM CTA
+     ================================================================ */
+  .fest-cta-section {
+    padding: var(--space-6) 0 var(--space-8);
+  }
+
+  .fest-cta-card {
+    background: linear-gradient(135deg, var(--color-deep-night) 0%, #2D3748 100%);
+    border-radius: 20px;
+    padding: var(--space-8) var(--space-6);
+    text-align: center;
+    color: #fff;
+  }
+
+  .fest-cta-heading {
+    font-size: clamp(1.3rem, 3vw, 1.8rem);
+    font-weight: var(--weight-bold);
+    margin: 0 0 var(--space-3);
+    color: #fff;
+  }
+
+  .fest-cta-text {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.75);
+    max-width: 520px;
+    margin: 0 auto var(--space-5);
+    line-height: 1.6;
+  }
+
+  .fest-cta-button {
+    display: inline-block;
+    background: var(--color-warm-coral);
+    color: #fff;
+    font-size: 0.9rem;
+    font-weight: var(--weight-semibold);
+    padding: 12px 28px;
+    border-radius: 40px;
+    text-decoration: none;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+
+  .fest-cta-button:hover {
+    background: #d4553b;
+    transform: translateY(-2px);
+  }
+
+  /* ================================================================
+     CROSS-LINKS
+     ================================================================ */
+  .fest-crosslinks {
+    padding: 0 0 var(--space-10);
+  }
+
+  .fest-crosslinks-heading {
+    font-size: 1.1rem;
+    font-weight: var(--weight-bold);
+    color: var(--color-deep-night);
+    text-align: center;
+    margin: 0 0 var(--space-4);
+  }
+
+  .fest-crosslinks-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-4);
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 640px) {
+    .fest-crosslinks-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .fest-crosslink-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-5) var(--space-4);
+    background: var(--color-white);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 16px;
+    text-decoration: none;
+    color: inherit;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .fest-crosslink-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  }
+
+  .fest-crosslink-icon {
+    font-size: 1.8rem;
+  }
+
+  .fest-crosslink-label {
+    font-size: 0.95rem;
+    font-weight: var(--weight-bold);
+    color: var(--color-deep-night);
+  }
+
+  .fest-crosslink-desc {
+    font-size: 0.78rem;
+    color: var(--color-slate);
+    line-height: 1.4;
+  }
+
+  /* ================================================================
+     RESPONSIVE — Hero adjustments
+     ================================================================ */
+  @media (max-width: 640px) {
+    .fest-hero {
+      min-height: 55vh;
+      padding: 0 var(--space-4) 40px;
+    }
+
+    .fest-hero-meta {
+      gap: var(--space-4);
+    }
+
+    .fest-scroll-hint {
+      display: none;
+    }
+  }
+
+  /* ================================================================
+     VIEW TOGGLE
+     ================================================================ */
+  .fest-view-toggle {
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+    background: var(--color-sand-dark);
+    border-radius: 40px;
+    padding: 4px;
+    max-width: 240px;
+    margin: 0 auto;
+  }
+
+  .fest-toggle-btn {
+    flex: 1;
+    padding: 8px 20px;
+    border: none;
+    border-radius: 36px;
+    font-size: 0.82rem;
+    font-weight: var(--weight-semibold);
+    cursor: pointer;
+    background: transparent;
+    color: var(--color-slate);
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+
+  .fest-toggle-btn.active {
+    background: var(--color-ocean-teal);
+    color: #fff;
+  }
+
+  .fest-toggle-btn:hover:not(.active) {
+    color: var(--color-deep-night);
+  }
+
+  /* ================================================================
+     MAP VIEW
+     ================================================================ */
+  .fest-map-container {
+    border-radius: 24px;
+    position: relative;
+    overflow: hidden;
+    background: radial-gradient(ellipse at 40% 30%, #0c3547 0%, #091e2f 40%, #060f1a 100%);
+    padding: 28px 20px 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .fest-map-container::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 600px 300px at 30% 70%, rgba(13, 115, 119, 0.08) 0%, transparent 70%),
+      radial-gradient(ellipse 400px 200px at 70% 20%, rgba(13, 115, 119, 0.06) 0%, transparent 70%);
+    animation: festOceanShimmer 8s ease-in-out infinite alternate;
+    pointer-events: none;
+  }
+
+  .fest-map-container::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(circle 1px at 20% 30%, rgba(255, 255, 255, 0.03) 0%, transparent 100%),
+      radial-gradient(circle 1px at 60% 50%, rgba(255, 255, 255, 0.02) 0%, transparent 100%),
+      radial-gradient(circle 1px at 40% 80%, rgba(255, 255, 255, 0.02) 0%, transparent 100%);
+    pointer-events: none;
+  }
+
+  @keyframes festOceanShimmer {
+    0% { opacity: 0.5; }
+    100% { opacity: 1; }
+  }
+
+  #festLeafletMap {
+    width: 100%;
+    height: 600px;
+    border-radius: 16px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .fest-map-tooltip {
+    position: absolute;
+    background: rgba(26, 35, 50, 0.95);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 10px 14px;
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(4px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    z-index: 50;
+    min-width: 180px;
+    max-width: 300px;
+  }
+
+  .fest-map-tooltip.fest-tooltip-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .fest-map-tooltip-name {
+    font-size: 0.85rem;
+    font-weight: var(--weight-bold);
+    color: white;
+    margin-bottom: 4px;
+  }
+
+  :global(.fest-map-tooltip-fest) {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.5;
+  }
+
+  :global(.fest-map-tooltip-month) {
+    font-size: 0.6rem;
+    font-weight: var(--weight-bold);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-warm-coral);
+    margin-right: 4px;
+  }
+
+  .fest-map-legend {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-4);
+    padding: var(--space-3) var(--space-4);
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 1;
+  }
+
+  .fest-map-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.45);
+  }
+
+  .fest-map-legend-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    box-shadow: 0 0 6px rgba(13, 115, 119, 0.5);
+  }
+
+  .fest-map-legend-note {
+    font-size: 0.68rem;
+    color: rgba(255, 255, 255, 0.35);
+  }
+
+  @media (max-width: 640px) {
+    #festLeafletMap { height: 450px; }
+  }
+
+  /* Personal intro */
+  .fest-personal {
+    padding-block: var(--space-8);
+  }
+
+  .fest-personal-quote {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: var(--space-6) var(--space-8);
+    border-left: 4px solid #D97706;
+    background: var(--color-sky);
+    border-radius: 0 12px 12px 0;
+  }
+
+  .fest-personal-quote p {
+    font-size: var(--text-body);
+    color: var(--color-heading);
+    line-height: var(--leading-body);
+    font-style: italic;
+    margin-bottom: var(--space-3);
+  }
+
+  .fest-personal-quote cite {
+    font-size: var(--text-caption);
+    color: #D97706;
+    font-weight: var(--weight-semibold);
+    font-style: normal;
+  }
+</style>

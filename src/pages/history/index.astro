@@ -1,0 +1,1382 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import EmailCapture from '../../components/EmailCapture.astro';
+import FAQ from '../../components/FAQ.astro';
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'History & Heritage', url: '/history/' },
+];
+
+const pageTitle = 'German History — From the Holy Roman Empire to Reunification';
+const pageDescription = 'Trace 1,000+ years of German history through the places where it happened — from medieval cathedrals to the Reformation, Prussian palaces to the fall of the Berlin Wall.';
+
+interface TimelineEvent {
+  date: string;
+  year: number;
+  title: string;
+  location: string;
+  slug?: string | string[];
+  description: string;
+  whatToSee?: string;
+  side: 'left' | 'right';
+  era: 'medieval' | 'reformation' | 'imperial' | 'modern';
+}
+
+const timeline: TimelineEvent[] = [
+  {
+    date: '800 AD',
+    year: 800,
+    title: 'Charlemagne Crowned Emperor',
+    location: 'Aachen',
+    slug: 'cologne',
+    description: 'Charlemagne was crowned Holy Roman Emperor by the Pope, establishing the Frankish Empire that would evolve into the Holy Roman Empire of the German Nation. Aachen became the empire\'s capital, and Charlemagne\'s legacy shaped German political identity for a millennium.',
+    whatToSee: 'Aachen Cathedral (Germany\'s first UNESCO World Heritage Site), Charlemagne\'s throne in the upper gallery, and the Cathedral Treasury with medieval relics.',
+    side: 'left',
+    era: 'medieval',
+  },
+  {
+    date: '962–1806',
+    year: 962,
+    title: 'The Holy Roman Empire',
+    location: 'Throughout Germany',
+    slug: 'nuremberg',
+    description: 'Otto I was crowned Holy Roman Emperor in 962, establishing a political entity that would last over 800 years. The empire was a patchwork of hundreds of principalities, bishoprics, and free cities. Nuremberg served as the unofficial capital where Imperial Diets were held and crown jewels stored.',
+    whatToSee: 'Nuremberg\'s Imperial Castle (Kaiserburg), the medieval Old Town, and the Germanic National Museum — Germany\'s largest museum of cultural history.',
+    side: 'right',
+    era: 'medieval',
+  },
+  {
+    date: '1248–1880',
+    year: 1248,
+    title: 'Cologne Cathedral Construction',
+    location: 'Cologne',
+    slug: 'cologne',
+    description: 'Construction of the Cologne Cathedral began in 1248 to house the relics of the Three Kings. It took over 600 years to complete. At 157 meters, it was briefly the world\'s tallest structure. The cathedral survived WWII bombing virtually intact while the city around it was destroyed — a symbol of German resilience.',
+    whatToSee: 'The twin-spired Gothic cathedral dominates the Cologne skyline. Climb 533 steps to the tower platform for panoramic views. The Shrine of the Three Kings inside is the largest gilded sarcophagus in Europe.',
+    side: 'left',
+    era: 'medieval',
+  },
+  {
+    date: 'c. 14th–15th century',
+    year: 1350,
+    title: 'The Hanseatic League',
+    location: 'Hamburg & Northern Germany',
+    slug: 'hamburg',
+    description: 'Hamburg, Lübeck, and Bremen led the Hanseatic League — a powerful medieval trading alliance that dominated Baltic and North Sea commerce. The League\'s merchant ships connected Germany to Scandinavia, Russia, and England, creating enormous wealth and architectural splendor in Germany\'s northern port cities.',
+    whatToSee: 'Hamburg\'s Speicherstadt (UNESCO-listed warehouse district), the Kontorhaus district, and the maritime museums. Lübeck\'s Holstentor gate is the League\'s most iconic symbol.',
+    side: 'right',
+    era: 'medieval',
+  },
+  {
+    date: 'October 31, 1517',
+    year: 1517,
+    title: 'Martin Luther & the Reformation',
+    location: 'Wittenberg & throughout',
+    slug: 'leipzig',
+    description: 'Martin Luther nailed his 95 Theses to the door of Wittenberg\'s Castle Church, sparking the Protestant Reformation that split Western Christianity and reshaped European politics. Luther translated the Bible into German, helping standardize the German language. The Reformation\'s impact on culture, education, and governance was profound.',
+    whatToSee: 'The Luther House in Wittenberg (UNESCO), Castle Church door, Wartburg Castle near Eisenach where Luther translated the New Testament, and St. Thomas Church in Leipzig where Bach later served.',
+    side: 'left',
+    era: 'reformation',
+  },
+  {
+    date: '1618–1648',
+    year: 1618,
+    title: 'The Thirty Years\' War',
+    location: 'Throughout Germany',
+    slug: 'heidelberg',
+    description: 'The most devastating conflict in German history before the 20th century. Catholic and Protestant states tore the empire apart, killing up to a third of Germany\'s population. The Peace of Westphalia in 1648 established the modern concept of state sovereignty. Heidelberg Castle was partially destroyed and never fully rebuilt — its romantic ruins became a symbol of the era.',
+    whatToSee: 'Heidelberg Castle\'s atmospheric ruins overlooking the Neckar River, the Westphalian Peace Hall in Münster, and countless churches and fortifications rebuilt after the war.',
+    side: 'right',
+    era: 'reformation',
+  },
+  {
+    date: '1740–1786',
+    year: 1740,
+    title: 'Frederick the Great & Prussia',
+    location: 'Berlin & Potsdam',
+    slug: 'berlin',
+    description: 'Frederick the Great transformed Prussia into a major European power, modernizing the army, promoting religious tolerance, and turning Berlin and Potsdam into centers of Enlightenment culture. He built Sanssouci Palace, composed music, and corresponded with Voltaire. Prussia would eventually lead the unification of Germany.',
+    whatToSee: 'Sanssouci Palace and its terraced gardens in Potsdam (UNESCO), the Neues Palais, Charlottenburg Palace in Berlin, and Frederick\'s grave at Sanssouci where visitors still leave potatoes in tribute.',
+    side: 'left',
+    era: 'reformation',
+  },
+  {
+    date: '1871',
+    year: 1871,
+    title: 'German Unification',
+    location: 'Berlin',
+    slug: 'berlin',
+    description: 'Otto von Bismarck unified dozens of German states into a single German Empire under Prussian leadership. Kaiser Wilhelm I was proclaimed Emperor at Versailles. Berlin became the imperial capital, and Germany rapidly industrialized into one of Europe\'s most powerful nations. The Gründerzeit era transformed Berlin with grand boulevards and monumental architecture.',
+    whatToSee: 'The Reichstag building (now the German parliament), Brandenburg Gate, the Victory Column (Siegessäule) in the Tiergarten, and Museum Island\'s world-class collections.',
+    side: 'right',
+    era: 'imperial',
+  },
+  {
+    date: '1919–1933',
+    year: 1919,
+    title: 'The Weimar Republic & Bauhaus',
+    location: 'Berlin & Weimar',
+    slug: 'berlin',
+    description: 'After World War I, Germany became a democracy — the Weimar Republic. Despite hyperinflation and political instability, the 1920s saw an extraordinary cultural flowering: Bauhaus design, Expressionist cinema, cabaret culture, and scientific breakthroughs. Berlin became the most vibrant city in Europe. The dream ended with the rise of the Nazis in 1933.',
+    whatToSee: 'The Bauhaus Archive in Berlin, the Bauhaus buildings in Dessau (UNESCO), Berlin\'s Golden Twenties walking tours, and the Weimar Bauhaus Museum.',
+    side: 'left',
+    era: 'imperial',
+  },
+  {
+    date: '1933–1945',
+    year: 1933,
+    title: 'The Nazi Era & World War II',
+    location: 'Berlin, Munich, Nuremberg',
+    slug: ['berlin', 'munich', 'nuremberg'],
+    description: 'The Nazi dictatorship brought devastation to Germany and the world. Hitler rose to power in Munich, staged rallies in Nuremberg, and ruled from Berlin. The Holocaust murdered six million Jews. Allied bombing destroyed vast swaths of German cities. The war ended with Germany\'s unconditional surrender in May 1945 and the country divided into occupation zones.',
+    whatToSee: 'The Holocaust Memorial and Topography of Terror in Berlin, the Documentation Center at the Nuremberg Rally Grounds, Dachau memorial near Munich, and the German Resistance Memorial Center in Berlin.',
+    side: 'right',
+    era: 'imperial',
+  },
+  {
+    date: '1949–1989',
+    year: 1949,
+    title: 'The Cold War & Divided Germany',
+    location: 'Berlin',
+    slug: 'berlin',
+    description: 'Germany was split into West Germany (democratic, allied with NATO) and East Germany (communist, allied with the Soviet Union). Berlin was divided by a wall in 1961. For 28 years, the Berlin Wall was the most potent symbol of the Cold War. East Germans risked their lives to escape. West Berlin became an island of freedom, creativity, and defiance.',
+    whatToSee: 'The East Side Gallery (longest surviving section of the Berlin Wall), Checkpoint Charlie Museum, the Berlin Wall Memorial on Bernauer Strasse, and the DDR Museum showing daily life in East Germany.',
+    side: 'left',
+    era: 'modern',
+  },
+  {
+    date: 'November 9, 1989',
+    year: 1989,
+    title: 'Fall of the Berlin Wall',
+    location: 'Berlin',
+    slug: 'berlin',
+    description: 'On November 9, 1989, the Berlin Wall fell as thousands of East Berliners streamed through the border crossings. Jubilant crowds danced on the wall, chipped away at it, and embraced in scenes broadcast worldwide. It was the defining moment of the 20th century\'s end, leading to German reunification on October 3, 1990.',
+    whatToSee: 'The Brandenburg Gate (where crowds gathered), the East Side Gallery murals, remnants of the Wall at Bernauer Strasse, and the Tränenpalast (Palace of Tears) — the former border crossing at Friedrichstraße station.',
+    side: 'right',
+    era: 'modern',
+  },
+  {
+    date: '1990–Present',
+    year: 1990,
+    title: 'Reunified Germany',
+    location: 'Berlin & throughout',
+    slug: 'berlin',
+    description: 'German reunification on October 3, 1990, brought East and West together. Berlin was rebuilt as the capital, Dresden\'s Frauenkirche was painstakingly reconstructed, and Leipzig — where the Monday Demonstrations helped spark reunification — thrived anew. Today Germany is Europe\'s largest economy and a cultural powerhouse.',
+    whatToSee: 'The rebuilt Reichstag with its glass dome (book free visits), the reconstructed Frauenkirche in Dresden, the Nikolaikirche in Leipzig where the peaceful revolution began, and Berlin\'s vibrant reunited cityscape.',
+    side: 'left',
+    era: 'modern',
+  },
+  {
+    date: 'Present Day',
+    year: 2026,
+    title: 'The Heritage That Remains',
+    location: 'All Destinations',
+    description: 'From the medieval castle perched above the Rhine to the graffiti-covered remnants of the Berlin Wall, from Gothic cathedrals to Bauhaus masterpieces — over a thousand years of history are woven into every corner of Germany. The castles still stand, the churches still ring their bells, and the stories are still being told. History in Germany isn\'t behind glass — it\'s under your feet, around every corner, and in every town square.',
+    side: 'right',
+    era: 'modern',
+  },
+];
+
+const eraLabels: Record<string, string> = {
+  medieval: 'Medieval Germany — 800–1517',
+  reformation: 'Reformation & Early Modern — 1517–1871',
+  imperial: 'Imperial Germany & World Wars — 1871–1949',
+  modern: 'Modern Germany — 1949–Present',
+};
+
+const eraGradients: Record<string, string> = {
+  medieval: 'linear-gradient(135deg, #78350F 0%, #D97706 100%)',
+  reformation: 'linear-gradient(135deg, #4C1D95 0%, #7C3AED 100%)',
+  imperial: 'linear-gradient(135deg, #B71C1C 0%, #D32F2F 100%)',
+  modern: 'linear-gradient(135deg, #0D7377 0%, #4DB6AC 100%)',
+};
+
+const eraColors: Record<string, string> = {
+  medieval: '#D97706',
+  reformation: '#7C3AED',
+  imperial: '#D32F2F',
+  modern: '#0D7377',
+};
+
+// Geo coordinates for map markers
+const geoLookup: Record<string, { lat: number; lng: number }> = {
+  berlin: { lat: 52.5200, lng: 13.4050 },
+  munich: { lat: 48.1351, lng: 11.5820 },
+  hamburg: { lat: 53.5511, lng: 9.9937 },
+  cologne: { lat: 50.9375, lng: 6.9603 },
+  dresden: { lat: 51.0504, lng: 13.7373 },
+  heidelberg: { lat: 49.3988, lng: 8.6724 },
+  nuremberg: { lat: 49.4521, lng: 11.0767 },
+  leipzig: { lat: 51.3397, lng: 12.3731 },
+};
+
+// Build map markers from timeline events that have slugs
+const wwiiMapMarkers = timeline
+  .filter(e => e.slug)
+  .map(e => {
+    const slugs = Array.isArray(e.slug) ? e.slug : [e.slug!];
+    const primarySlug = slugs[0];
+    const geo = geoLookup[primarySlug];
+    if (!geo) return null;
+    return {
+      lat: geo.lat,
+      lng: geo.lng,
+      title: e.title,
+      date: e.date,
+      location: e.location,
+      era: e.era,
+      color: eraColors[e.era],
+      url: `/destinations/${primarySlug}/`,
+    };
+  })
+  .filter(Boolean);
+
+// WW2 card videos — 7 clips cycled across 25 events
+const ww2CardVideos = Array.from({ length: 7 }, (_, i) => `/videos/pillar/ww2-card-${i + 1}.mp4`);
+
+---
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  pageType="destination"
+  schemaData={{ title: pageTitle, description: pageDescription }}
+  breadcrumbs={breadcrumbs}
+>
+  <!-- Hero -->
+  <header class="ww2-hero">
+    <video class="ww2-hero-video" autoplay muted loop playsinline preload="metadata">
+      <source src="/videos/pillar/history-hero.mp4" type="video/mp4" />
+    </video>
+    <div class="ww2-hero-gradient"></div>
+    <div class="ww2-hero-noise"></div>
+    <div class="ww2-hero-content">
+      <h1 class="ww2-hero-title">German History & Heritage</h1>
+      <p class="ww2-hero-subtitle">From medieval cathedrals to the Reformation, Prussian palaces to the fall of the Berlin Wall — trace over 1,000 years of history through the places where it happened.</p>
+      <div class="ww2-hero-meta">
+        <div class="ww2-hero-meta-item">
+          <span class="ww2-hero-meta-label">Events</span>
+          <span class="ww2-hero-meta-value">17</span>
+        </div>
+        <div class="ww2-hero-meta-item">
+          <span class="ww2-hero-meta-label">Destinations</span>
+          <span class="ww2-hero-meta-value">8</span>
+        </div>
+        <div class="ww2-hero-meta-item">
+          <span class="ww2-hero-meta-label">Timeline</span>
+          <span class="ww2-hero-meta-value">800 AD–Present</span>
+        </div>
+      </div>
+    </div>
+    <div class="ww2-scroll-hint">Scroll<br />&#8595;</div>
+  </header>
+
+  <!-- Breadcrumb -->
+  <div class="container-content">
+    <Breadcrumb items={breadcrumbs} />
+  </div>
+
+  <!-- Personal intro -->
+  <section class="ww2-personal reveal">
+    <div class="container-content">
+      <blockquote class="ww2-personal-quote">
+        <p>I was never a history nerd until I stood at the Brandenburg Gate at sunset — looking down Unter den Linden and realizing that this one spot had witnessed emperors, revolutions, a wall dividing a city, and the euphoria of reunification. Something clicked. Germany doesn't just have history — it IS history. Every castle, every cobblestone street, every small town square has a story stretching back centuries. We've explored medieval fortresses along the Rhine, stood in the church where Martin Luther changed the world, and touched the remnants of the Berlin Wall. The past isn't behind glass here — it's alive.</p>
+        <cite>— Scott</cite>
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- View Toggle -->
+  <div class="container-content" style="padding-top: var(--space-2); padding-bottom: var(--space-4);">
+    <div class="ww2-view-toggle">
+      <button class="ww2-toggle-btn active" id="ww2BtnTimeline">Timeline</button>
+      <button class="ww2-toggle-btn" id="ww2BtnMap">Map</button>
+    </div>
+  </div>
+
+  <!-- Timeline -->
+  <div id="ww2TimelineView">
+  <section class="ww2-timeline-section">
+    <div class="container-content">
+      <h2 class="ww2-timeline-heading reveal">1,000+ Years Across Germany</h2>
+      <p class="ww2-timeline-sub reveal">From Charlemagne's empire to the Reformation, from Prussian grandeur to the fall of the Berlin Wall — Germany's history shaped Europe and the modern world. These are the places where it happened, and where it's still visible today.</p>
+
+      <div class="ww2-timeline">
+        <div class="ww2-timeline-line" aria-hidden="true"></div>
+
+        {(() => {
+          let lastEra = '';
+          return timeline.map((event, idx) => {
+            const showEra = event.era !== lastEra;
+            lastEra = event.era;
+            const slugs = Array.isArray(event.slug) ? event.slug : event.slug ? [event.slug] : [];
+            const primarySlug = slugs[0];
+            const cardVideo = ww2CardVideos[idx % ww2CardVideos.length];
+            return (
+              <>
+                {showEra && (
+                  <div class="ww2-era-marker reveal">
+                    <div class="ww2-era-pill" style={`background: ${eraGradients[event.era]};`}>
+                      {eraLabels[event.era]}
+                    </div>
+                  </div>
+                )}
+                <div class={`ww2-event ww2-event--${event.side} reveal`}>
+                  <div class="ww2-event-dot" style={`background: ${eraGradients[event.era]};`}></div>
+                  {primarySlug && slugs.length === 1 ? (
+                    <a href={`/destinations/${primarySlug}/`} class="ww2-event-card">
+                      <div class="ww2-event-media" style={`background: ${eraGradients[event.era]};`}>
+                        <video class="ww2-event-video" muted loop playsinline preload="none" data-src={cardVideo}></video>
+                        <span class="ww2-event-date-badge">{event.date}</span>
+                      </div>
+                      <div class="ww2-event-body">
+                        <h3 class="ww2-event-title">{event.title}</h3>
+                        <p class="ww2-event-location">{event.location}</p>
+                        <p class="ww2-event-desc">{event.description}</p>
+                        {event.whatToSee && (
+                          <div class="ww2-event-see">
+                            <span class="ww2-event-see-label">What to see today:</span>
+                            <p class="ww2-event-see-text">{event.whatToSee}</p>
+                          </div>
+                        )}
+                        <span class="ww2-event-cta">Explore {event.location.split(',')[0]} &rarr;</span>
+                      </div>
+                      <div class="ww2-event-overlay">
+                        <p class="ww2-event-overlay-text">{event.description}</p>
+                        {event.whatToSee && (
+                          <div class="ww2-event-overlay-see">
+                            <span class="ww2-event-overlay-see-label">What to see today:</span>
+                            <p>{event.whatToSee}</p>
+                          </div>
+                        )}
+                        <span class="ww2-event-overlay-cta">Explore {event.location.split(',')[0]} &rarr;</span>
+                      </div>
+                    </a>
+                  ) : primarySlug ? (
+                    <div class="ww2-event-card ww2-event-card--multi">
+                      <div class="ww2-event-media" style={`background: ${eraGradients[event.era]};`}>
+                        <video class="ww2-event-video" muted loop playsinline preload="none" data-src={cardVideo}></video>
+                        <span class="ww2-event-date-badge">{event.date}</span>
+                      </div>
+                      <div class="ww2-event-body">
+                        <h3 class="ww2-event-title">{event.title}</h3>
+                        <p class="ww2-event-location">{event.location}</p>
+                        <p class="ww2-event-desc">{event.description}</p>
+                        {event.whatToSee && (
+                          <div class="ww2-event-see">
+                            <span class="ww2-event-see-label">What to see today:</span>
+                            <p class="ww2-event-see-text">{event.whatToSee}</p>
+                          </div>
+                        )}
+                        <div class="ww2-event-cta-group">
+                          {slugs.map((s) => (
+                            <a href={`/destinations/${s}/`} class="ww2-event-cta ww2-event-cta-link">Explore {s.charAt(0).toUpperCase() + s.slice(1)} &rarr;</a>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    <div class="ww2-event-card ww2-event-card--nolink">
+                      <div class="ww2-event-media" style={`background: ${eraGradients[event.era]};`}>
+                        <video class="ww2-event-video" muted loop playsinline preload="none" data-src={cardVideo}></video>
+                        <span class="ww2-event-date-badge">{event.date}</span>
+                      </div>
+                      <div class="ww2-event-body">
+                        <h3 class="ww2-event-title">{event.title}</h3>
+                        <p class="ww2-event-location">{event.location}</p>
+                        <p class="ww2-event-desc">{event.description}</p>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </>
+            );
+          });
+        })()}
+      </div>
+    </div>
+  </section>
+
+  </div><!-- /ww2TimelineView -->
+
+  <!-- Map View (hidden by default) -->
+  <div id="ww2MapView" style="display:none;">
+    <section style="padding: var(--space-4) 0 var(--space-8);">
+      <div class="container-content">
+        <div class="ww2-map-container" id="ww2MapContainer">
+          <div class="ww2-map-tooltip" id="ww2MapTooltip">
+            <div class="ww2-map-tooltip-title" id="ww2TooltipTitle"></div>
+            <div class="ww2-map-tooltip-date" id="ww2TooltipDate"></div>
+            <div class="ww2-map-tooltip-location" id="ww2TooltipLocation"></div>
+          </div>
+          <div id="ww2LeafletMap"></div>
+          <div class="ww2-map-legend">
+            <div class="ww2-map-legend-item"><div class="ww2-map-legend-dot" style="background:#D97706;"></div>Medieval</div>
+            <div class="ww2-map-legend-item"><div class="ww2-map-legend-dot" style="background:#7C3AED;"></div>Reformation</div>
+            <div class="ww2-map-legend-item"><div class="ww2-map-legend-dot" style="background:#D32F2F;"></div>Imperial/World Wars</div>
+            <div class="ww2-map-legend-item"><div class="ww2-map-legend-dot" style="background:#0D7377;"></div>Modern</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Bottom CTA -->
+  <section class="ww2-cta-section reveal">
+    <div class="container-content">
+      <div class="ww2-cta-card">
+        <h2 class="ww2-cta-heading">Plan a Heritage Trip</h2>
+        <p class="ww2-cta-text">Tell our AI planner you want to follow the heritage trail and it will build a chronological itinerary — Berlin, Cologne, Heidelberg, Nuremberg, Dresden, and more.</p>
+        <a href="/plan/" class="ww2-cta-button">Start Planning &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <FAQ items={[
+    { question: "What are the most important historical sites in Germany?", answer: "The Brandenburg Gate and Berlin Wall remnants (Cold War), Cologne Cathedral (medieval), Nuremberg's Imperial Castle (Holy Roman Empire), Heidelberg Castle (Thirty Years' War), Sanssouci Palace in Potsdam (Prussian era), and the Wittenberg Luther sites (Reformation). Each represents a different era of Germany's history. Most sites charge 5-15 EUR entrance." },
+    { question: "Can you visit castles and historical buildings in Germany?", answer: "Yes — Germany has thousands of castles, palaces, and historical buildings open to visitors. Major sites are open daily from 9am-6pm in summer, shorter hours in winter. Many offer combination tickets. Bavaria alone has over 40 state-owned castles and palaces. The Prussian Palaces Foundation manages 30+ sites around Berlin and Potsdam. Many museums offer free admission on the first Sunday of the month." },
+    { question: "What is the best way to see German history?", answer: "Start in Berlin (Brandenburg Gate, Berlin Wall, Museum Island, Reichstag), then visit Potsdam for Prussian palaces. Head to Cologne and the Rhine Valley for medieval castles and cathedrals. Nuremberg covers the Holy Roman Empire and WWII documentation. Dresden and Leipzig showcase Eastern German history and reunification. Our AI Trip Planner can build a heritage-focused itinerary." },
+    { question: "When was Germany reunified?", answer: "German reunification took place on October 3, 1990, following the fall of the Berlin Wall on November 9, 1989. October 3 is celebrated as Tag der Deutschen Einheit (German Unity Day), a national holiday. The peaceful revolution began with Monday Demonstrations in Leipzig in 1989, and the process of reunification transformed the country over the following decades." },
+    { question: "What is the Berlin Wall?", answer: "The Berlin Wall divided East and West Berlin from 1961 to 1989. Built by the communist East German government to prevent emigration, it became the most powerful symbol of the Cold War. Today, remnants are preserved as memorials: the East Side Gallery (1.3 km of murals), the Berlin Wall Memorial on Bernauer Strasse, and Checkpoint Charlie. The Wall's fall in November 1989 was a defining moment of the 20th century." },
+    { question: "What are the Rhine castles?", answer: "The Upper Middle Rhine Valley (a UNESCO World Heritage Site) contains over 40 castles and fortresses along a 65 km stretch of the Rhine between Koblenz and Bingen. Built between the 12th and 14th centuries, these castles controlled trade along the river. Many are open to visitors, some as hotels or restaurants. A Rhine river cruise is the most scenic way to see them — boat services run regularly from April to October." },
+  ]} />
+
+  <!-- Email Capture -->
+  <div class="container-content reveal" style="padding-bottom: var(--space-6);">
+    <EmailCapture
+      leadMagnet="Get Our Free German Heritage Trail Guide"
+      description="A chronological PDF guide to Germany's greatest historical sites — with directions, opening hours, and the history behind each location."
+      bullets={[
+        'All major historical sites with logistics and costs',
+        'Berlin heritage walking tour itinerary',
+        'Rhine Valley 5-day castle road trip planner',
+        'Reformation trail: Wittenberg, Leipzig, and Wartburg Castle circuit',
+      ]}
+      guideTag="pillar-history"
+    />
+  </div>
+
+  <!-- Cross-links -->
+  <section class="ww2-crosslinks reveal">
+    <div class="container-content">
+      <h3 class="ww2-crosslinks-heading">Explore More</h3>
+      <div class="ww2-crosslinks-grid">
+        <a href="/festivals/" class="ww2-crosslink-card">
+          <span class="ww2-crosslink-icon">&#127914;</span>
+          <span class="ww2-crosslink-label">Festival Calendar</span>
+          <span class="ww2-crosslink-desc">26 festivals across Germany year-round</span>
+        </a>
+        <a href="/cuisine/" class="ww2-crosslink-card">
+          <span class="ww2-crosslink-icon">&#127860;</span>
+          <span class="ww2-crosslink-label">Food & Cuisine</span>
+          <span class="ww2-crosslink-desc">German dishes across 4 regions</span>
+        </a>
+        <a href="/destinations/" class="ww2-crosslink-card">
+          <span class="ww2-crosslink-icon">&#127965;</span>
+          <span class="ww2-crosslink-label">All Destinations</span>
+          <span class="ww2-crosslink-desc">Every destination we've explored</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<!-- Scroll Reveal Observer -->
+<script>
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add('visible');
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+    );
+    document.querySelectorAll('.reveal').forEach((el) => revealObserver.observe(el));
+  } else {
+    document.querySelectorAll('.reveal').forEach((el) => el.classList.add('visible'));
+  }
+</script>
+
+<!-- View Toggle Logic -->
+<script>
+  const ww2BtnTimeline = document.getElementById('ww2BtnTimeline');
+  const ww2BtnMap = document.getElementById('ww2BtnMap');
+  const ww2TimelineView = document.getElementById('ww2TimelineView');
+  const ww2MapView = document.getElementById('ww2MapView');
+
+  function ww2ShowTimeline() {
+    ww2TimelineView!.style.display = '';
+    ww2MapView!.style.display = 'none';
+    ww2BtnTimeline!.classList.add('active');
+    ww2BtnMap!.classList.remove('active');
+  }
+
+  function ww2ShowMap() {
+    ww2TimelineView!.style.display = 'none';
+    ww2MapView!.style.display = '';
+    ww2BtnTimeline!.classList.remove('active');
+    ww2BtnMap!.classList.add('active');
+    if (window.ww2Map) {
+      window.ww2Map.invalidateSize();
+    }
+  }
+
+  ww2BtnTimeline?.addEventListener('click', ww2ShowTimeline);
+  ww2BtnMap?.addEventListener('click', ww2ShowMap);
+</script>
+
+<!-- Lazy-load & autoplay WW2 card videos on scroll -->
+<script>
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const ww2VideoObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const video = entry.target as HTMLVideoElement;
+          if (entry.isIntersecting) {
+            if (!video.src && video.dataset.src) {
+              video.src = video.dataset.src;
+            }
+            video.play().catch(() => {});
+          } else {
+            video.pause();
+          }
+        });
+      },
+      { rootMargin: '100px' }
+    );
+    document.querySelectorAll('.ww2-event-video').forEach((v) => ww2VideoObserver.observe(v));
+  }
+</script>
+
+<!-- Leaflet Map for WWII -->
+<script is:inline define:vars={{ markers: wwiiMapMarkers }}>
+  // Load Leaflet CSS
+  if (!document.getElementById('leaflet-css')) {
+    var lnk = document.createElement('link');
+    lnk.id = 'leaflet-css';
+    lnk.rel = 'stylesheet';
+    lnk.href = 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css';
+    document.head.appendChild(lnk);
+  }
+
+  function initWwiiMap() {
+    var mapEl = document.getElementById('ww2LeafletMap');
+    if (!mapEl || typeof L === 'undefined') return;
+
+    var map = L.map(mapEl, {
+      center: [51.0, 10.5],
+      zoom: 6,
+      scrollWheelZoom: false,
+      minZoom: 5,
+      maxZoom: 12,
+      maxBounds: [[46, 5], [56, 16]],
+      zoomControl: false,
+      attributionControl: false,
+    });
+
+    window.ww2Map = map;
+
+    L.control.attribution({ prefix: false }).addTo(map);
+    L.control.zoom({ position: 'topright' }).addTo(map);
+
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+      attribution: '\u00a9 <a href="https://www.openstreetmap.org/copyright">OSM</a> \u00a9 <a href="https://carto.com/">CARTO</a>',
+      maxZoom: 19,
+    }).addTo(map);
+
+    function makeCircle(color, size, stroke) {
+      return L.divIcon({
+        className: '',
+        html: '<div style="width:' + size + 'px;height:' + size + 'px;border-radius:50%;background:' + color + ';border:2px solid ' + stroke + ';box-shadow:0 0 6px rgba(0,0,0,0.3);cursor:pointer;"></div>',
+        iconSize: [size, size],
+        iconAnchor: [size / 2, size / 2],
+      });
+    }
+
+    var tooltip = document.getElementById('ww2MapTooltip');
+    var tooltipTitle = document.getElementById('ww2TooltipTitle');
+    var tooltipDate = document.getElementById('ww2TooltipDate');
+    var tooltipLocation = document.getElementById('ww2TooltipLocation');
+    var container = document.getElementById('ww2MapContainer');
+
+    markers.forEach(function(m) {
+      var icon = makeCircle(m.color, 16, '#ffffff');
+      var marker = L.marker([m.lat, m.lng], { icon: icon, title: m.title }).addTo(map);
+
+      marker.on('mouseover', function(e) {
+        if (tooltipTitle) tooltipTitle.textContent = m.title;
+        if (tooltipDate) tooltipDate.textContent = m.date;
+        if (tooltipLocation) tooltipLocation.textContent = m.location;
+        if (tooltip) tooltip.classList.add('ww2-tooltip-visible');
+        if (container && tooltip) {
+          var pt = e.containerPoint;
+          tooltip.style.left = (pt.x + 12) + 'px';
+          tooltip.style.top = (pt.y - 10) + 'px';
+        }
+      });
+
+      marker.on('mouseout', function() {
+        if (tooltip) tooltip.classList.remove('ww2-tooltip-visible');
+      });
+
+      marker.on('click', function() {
+        window.location.href = m.url;
+      });
+    });
+  }
+
+  // Load Leaflet JS
+  if (typeof L !== 'undefined') {
+    initWwiiMap();
+  } else {
+    var lscript = document.createElement('script');
+    lscript.src = 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js';
+    lscript.onload = initWwiiMap;
+    document.head.appendChild(lscript);
+  }
+</script>
+
+<style>
+  /* ================================================================
+     HERO — Dark, somber gradient
+     ================================================================ */
+  .ww2-hero {
+    position: relative;
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 5rem var(--space-6) 60px;
+    overflow: hidden;
+  }
+
+  .ww2-hero-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+  }
+
+  .ww2-hero-gradient {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.15) 40%, rgba(0,0,0,0.55) 100%);
+  }
+
+  .ww2-hero-noise {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+  }
+
+  .ww2-hero-content {
+    position: relative;
+    z-index: 3;
+    max-width: 720px;
+  }
+
+  .ww2-hero-title {
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: var(--weight-bold);
+    color: #fff;
+    line-height: 1.1;
+    margin: 0 0 var(--space-3);
+  }
+
+  .ww2-hero-subtitle {
+    font-size: clamp(1rem, 2vw, 1.15rem);
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.6;
+    margin: 0 0 var(--space-5);
+    max-width: 580px;
+  }
+
+  .ww2-hero-meta {
+    display: flex;
+    gap: var(--space-5);
+    flex-wrap: wrap;
+  }
+
+  .ww2-hero-meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .ww2-hero-meta-label {
+    font-size: 0.65rem;
+    font-weight: var(--weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  .ww2-hero-meta-value {
+    font-size: 1.1rem;
+    font-weight: var(--weight-bold);
+    color: #fff;
+  }
+
+  .ww2-scroll-hint {
+    position: absolute;
+    bottom: 16px;
+    right: var(--space-6);
+    z-index: 3;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: rgba(255, 255, 255, 0.35);
+    text-align: center;
+    animation: ww2Bounce 2s ease-in-out infinite;
+  }
+
+  @keyframes ww2Bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(6px); }
+  }
+
+  /* ================================================================
+     TIMELINE SECTION
+     ================================================================ */
+  .ww2-timeline-section {
+    padding: var(--space-10) 0 var(--space-8);
+  }
+
+  .ww2-timeline-heading {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: var(--weight-bold);
+    color: var(--color-deep-night);
+    margin: 0 0 var(--space-2);
+    text-align: center;
+  }
+
+  .ww2-timeline-sub {
+    font-size: 1rem;
+    color: var(--color-slate);
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto var(--space-10);
+    line-height: 1.6;
+  }
+
+  /* Timeline container */
+  .ww2-timeline {
+    position: relative;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  /* Central vertical line */
+  .ww2-timeline-line {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, #D97706 0%, #7C3AED 35%, #D32F2F 65%, #0D7377 100%);
+    transform: translateX(-50%);
+    opacity: 0.3;
+  }
+
+  /* ================================================================
+     ERA MARKERS
+     ================================================================ */
+  .ww2-era-marker {
+    position: relative;
+    text-align: center;
+    margin: var(--space-8) 0 var(--space-6);
+    z-index: 2;
+  }
+
+  .ww2-era-marker:first-child {
+    margin-top: 0;
+  }
+
+  .ww2-era-pill {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: var(--weight-bold);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #fff;
+    padding: 8px 20px;
+    border-radius: 40px;
+  }
+
+  /* ================================================================
+     TIMELINE EVENT
+     ================================================================ */
+  .ww2-event {
+    position: relative;
+    display: flex;
+    margin-bottom: var(--space-6);
+    padding: 0 var(--space-4);
+  }
+
+  .ww2-event--left {
+    justify-content: flex-start;
+    padding-right: calc(50% + 24px);
+  }
+
+  .ww2-event--right {
+    justify-content: flex-end;
+    padding-left: calc(50% + 24px);
+  }
+
+  /* Dot on the timeline */
+  .ww2-event-dot {
+    position: absolute;
+    left: 50%;
+    top: 24px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    transform: translateX(-50%);
+    border: 3px solid var(--color-sand);
+    z-index: 2;
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.06);
+  }
+
+  /* Event card */
+  .ww2-event-card {
+    position: relative;
+    display: block;
+    background: var(--color-white);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 14px;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    width: 100%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .ww2-event-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+  }
+
+  .ww2-event-card--nolink {
+    cursor: default;
+    border-style: dashed;
+    border-color: rgba(0, 0, 0, 0.12);
+  }
+
+  .ww2-event-card--nolink:hover {
+    transform: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  }
+
+  .ww2-event-media {
+    position: relative;
+    aspect-ratio: 21 / 9;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+    padding: var(--space-3);
+    overflow: hidden;
+  }
+
+  .ww2-event-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+  }
+
+  .ww2-event-date-badge {
+    position: relative;
+    z-index: 1;
+  }
+
+  .ww2-event-date-badge {
+    font-size: 0.65rem;
+    font-weight: var(--weight-bold);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(255, 255, 255, 0.9);
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    padding: 4px 12px;
+    border-radius: 6px;
+  }
+
+  .ww2-event-body {
+    padding: var(--space-3) var(--space-4) var(--space-5);
+  }
+
+  .ww2-event-title {
+    font-size: 0.95rem;
+    font-weight: var(--weight-bold);
+    color: var(--color-deep-night);
+    margin: 0 0 4px;
+    line-height: 1.25;
+  }
+
+  .ww2-event-location {
+    font-size: 0.72rem;
+    color: var(--color-ocean-teal);
+    font-weight: var(--weight-medium);
+    margin: 0 0 var(--space-2);
+  }
+
+  .ww2-event-desc {
+    font-size: 0.78rem;
+    color: var(--color-slate);
+    line-height: 1.55;
+    margin: 0 0 var(--space-3);
+  }
+
+  .ww2-event-see {
+    background: var(--color-sky);
+    border-radius: 8px;
+    padding: var(--space-2) var(--space-3);
+    margin-bottom: var(--space-3);
+  }
+
+  .ww2-event-see-label {
+    font-size: 0.65rem;
+    font-weight: var(--weight-bold);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-ocean-teal);
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .ww2-event-see-text {
+    font-size: 0.75rem;
+    color: var(--color-slate);
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .ww2-event-cta {
+    font-size: 0.72rem;
+    font-weight: var(--weight-semibold);
+    color: var(--color-ocean-teal);
+  }
+
+  .ww2-event-cta-group {
+    display: flex;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+  }
+
+  .ww2-event-cta-link {
+    color: var(--color-ocean-teal);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .ww2-event-cta-link:hover {
+    color: var(--color-ocean-teal-dark, #095456);
+    text-decoration: underline;
+  }
+
+  .ww2-event-card--multi {
+    cursor: default;
+  }
+
+  .ww2-event-card--multi:hover {
+    transform: translateY(-2px);
+  }
+
+  /* Hover overlay */
+  .ww2-event-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(26, 35, 50, 0.94);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: var(--space-4);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    overflow-y: auto;
+  }
+
+  .ww2-event-card:hover .ww2-event-overlay {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .ww2-event-overlay-text {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.92);
+    line-height: 1.55;
+    margin: 0 0 var(--space-2);
+  }
+
+  .ww2-event-overlay-see {
+    margin-bottom: var(--space-3);
+  }
+
+  .ww2-event-overlay-see-label {
+    font-size: 0.6rem;
+    font-weight: var(--weight-bold);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(255, 255, 255, 0.5);
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .ww2-event-overlay-see p {
+    font-size: 0.72rem;
+    color: rgba(255, 255, 255, 0.75);
+    line-height: 1.45;
+    margin: 0;
+  }
+
+  .ww2-event-overlay-cta {
+    font-size: 0.75rem;
+    font-weight: var(--weight-semibold);
+    color: var(--color-warm-coral);
+  }
+
+  /* ================================================================
+     RESPONSIVE — Stack timeline on mobile
+     ================================================================ */
+  @media (max-width: 768px) {
+    .ww2-timeline-line {
+      left: 20px;
+    }
+
+    .ww2-event--left,
+    .ww2-event--right {
+      padding-left: 48px;
+      padding-right: 0;
+      justify-content: flex-start;
+    }
+
+    .ww2-event-dot {
+      left: 20px;
+    }
+
+    .ww2-hero {
+      min-height: 55vh;
+      padding: 0 var(--space-4) 40px;
+    }
+
+    .ww2-scroll-hint {
+      display: none;
+    }
+  }
+
+  /* ================================================================
+     BOTTOM CTA
+     ================================================================ */
+  .ww2-cta-section {
+    padding: var(--space-6) 0 var(--space-8);
+  }
+
+  .ww2-cta-card {
+    background: linear-gradient(135deg, var(--color-deep-night) 0%, #2D3748 100%);
+    border-radius: 20px;
+    padding: var(--space-8) var(--space-6);
+    text-align: center;
+    color: #fff;
+  }
+
+  .ww2-cta-heading {
+    font-size: clamp(1.3rem, 3vw, 1.8rem);
+    font-weight: var(--weight-bold);
+    margin: 0 0 var(--space-3);
+    color: #fff;
+  }
+
+  .ww2-cta-text {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.75);
+    max-width: 520px;
+    margin: 0 auto var(--space-5);
+    line-height: 1.6;
+  }
+
+  .ww2-cta-button {
+    display: inline-block;
+    background: var(--color-warm-coral);
+    color: #fff;
+    font-size: 0.9rem;
+    font-weight: var(--weight-semibold);
+    padding: 12px 28px;
+    border-radius: 40px;
+    text-decoration: none;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+
+  .ww2-cta-button:hover {
+    background: #d4553b;
+    transform: translateY(-2px);
+  }
+
+  /* ================================================================
+     CROSS-LINKS
+     ================================================================ */
+  .ww2-crosslinks {
+    padding: 0 0 var(--space-10);
+  }
+
+  .ww2-crosslinks-heading {
+    font-size: 1.1rem;
+    font-weight: var(--weight-bold);
+    color: var(--color-deep-night);
+    text-align: center;
+    margin: 0 0 var(--space-4);
+  }
+
+  .ww2-crosslinks-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-4);
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 640px) {
+    .ww2-crosslinks-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .ww2-crosslink-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-5) var(--space-4);
+    background: var(--color-white);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 16px;
+    text-decoration: none;
+    color: inherit;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .ww2-crosslink-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  }
+
+  .ww2-crosslink-icon {
+    font-size: 1.8rem;
+  }
+
+  .ww2-crosslink-label {
+    font-size: 0.95rem;
+    font-weight: var(--weight-bold);
+    color: var(--color-deep-night);
+  }
+
+  .ww2-crosslink-desc {
+    font-size: 0.78rem;
+    color: var(--color-slate);
+    line-height: 1.4;
+  }
+
+  /* ================================================================
+     VIEW TOGGLE
+     ================================================================ */
+  .ww2-view-toggle {
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+    background: var(--color-sand-dark);
+    border-radius: 40px;
+    padding: 4px;
+    max-width: 240px;
+    margin: 0 auto;
+  }
+
+  .ww2-toggle-btn {
+    flex: 1;
+    padding: 8px 20px;
+    border: none;
+    border-radius: 36px;
+    font-size: 0.82rem;
+    font-weight: var(--weight-semibold);
+    cursor: pointer;
+    background: transparent;
+    color: var(--color-slate);
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+
+  .ww2-toggle-btn.active {
+    background: var(--color-ocean-teal);
+    color: #fff;
+  }
+
+  .ww2-toggle-btn:hover:not(.active) {
+    color: var(--color-deep-night);
+  }
+
+  /* ================================================================
+     MAP VIEW
+     ================================================================ */
+  .ww2-map-container {
+    border-radius: 24px;
+    position: relative;
+    overflow: hidden;
+    background: radial-gradient(ellipse at 40% 30%, #0c3547 0%, #091e2f 40%, #060f1a 100%);
+    padding: 28px 20px 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .ww2-map-container::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 600px 300px at 30% 70%, rgba(13, 115, 119, 0.08) 0%, transparent 70%),
+      radial-gradient(ellipse 400px 200px at 70% 20%, rgba(13, 115, 119, 0.06) 0%, transparent 70%);
+    animation: ww2OceanShimmer 8s ease-in-out infinite alternate;
+    pointer-events: none;
+  }
+
+  .ww2-map-container::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(circle 1px at 20% 30%, rgba(255, 255, 255, 0.03) 0%, transparent 100%),
+      radial-gradient(circle 1px at 60% 50%, rgba(255, 255, 255, 0.02) 0%, transparent 100%),
+      radial-gradient(circle 1px at 40% 80%, rgba(255, 255, 255, 0.02) 0%, transparent 100%);
+    pointer-events: none;
+  }
+
+  @keyframes ww2OceanShimmer {
+    0% { opacity: 0.5; }
+    100% { opacity: 1; }
+  }
+
+  #ww2LeafletMap {
+    width: 100%;
+    height: 600px;
+    border-radius: 16px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .ww2-map-tooltip {
+    position: absolute;
+    background: rgba(26, 35, 50, 0.95);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 10px 14px;
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(4px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    z-index: 50;
+    min-width: 160px;
+    max-width: 280px;
+  }
+
+  .ww2-map-tooltip.ww2-tooltip-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .ww2-map-tooltip-title {
+    font-size: 0.85rem;
+    font-weight: var(--weight-bold);
+    color: white;
+    margin-bottom: 2px;
+    line-height: 1.3;
+  }
+
+  .ww2-map-tooltip-date {
+    font-size: 0.65rem;
+    color: rgba(255, 255, 255, 0.45);
+    font-weight: var(--weight-medium);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 2px;
+  }
+
+  .ww2-map-tooltip-location {
+    font-size: 0.72rem;
+    color: var(--color-warm-coral);
+    font-weight: var(--weight-medium);
+  }
+
+  .ww2-map-legend {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-5);
+    padding: var(--space-3) var(--space-4);
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 1;
+  }
+
+  .ww2-map-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.45);
+  }
+
+  .ww2-map-legend-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    box-shadow: 0 0 6px rgba(13, 115, 119, 0.5);
+  }
+
+  @media (max-width: 768px) {
+    #ww2LeafletMap { height: 450px; }
+  }
+
+  /* Personal intro */
+  .ww2-personal {
+    padding-block: var(--space-8);
+  }
+
+  .ww2-personal-quote {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: var(--space-6) var(--space-8);
+    border-left: 4px solid var(--color-ocean-teal);
+    background: var(--color-sky);
+    border-radius: 0 12px 12px 0;
+  }
+
+  .ww2-personal-quote p {
+    font-size: var(--text-body);
+    color: var(--color-heading);
+    line-height: var(--leading-body);
+    font-style: italic;
+    margin-bottom: var(--space-3);
+  }
+
+  .ww2-personal-quote cite {
+    font-size: var(--text-caption);
+    color: var(--color-ocean-teal);
+    font-weight: var(--weight-semibold);
+    font-style: normal;
+  }
+</style>

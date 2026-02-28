@@ -1,0 +1,1049 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import EmailCapture from '../../components/EmailCapture.astro';
+import FAQ from '../../components/FAQ.astro';
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'German Cuisine Guide', url: '/cuisine/' },
+];
+
+const pageTitle = 'German Cuisine Guide — Eat Your Way Across Germany';
+const pageDescription = 'A region-by-region guide to the dishes that define German food culture — from Bavarian Schweinshaxe to Berlin Currywurst. Find where to eat the real thing.';
+
+interface Dish {
+  name: string;
+  image?: string;
+  destination: string;
+  slug: string;
+  price: string;
+  description: string;
+  tag?: string;
+}
+
+interface MenuSection {
+  region: string;
+  tagline: string;
+  gradient: string;
+  dishes: Dish[];
+}
+
+const menu: MenuSection[] = [
+  {
+    region: 'Bavaria & Southern Germany',
+    tagline: 'Hearty Alpine cuisine, beer hall classics, pretzels, pork knuckle, and the soul of German comfort food',
+    gradient: 'linear-gradient(135deg, #BF360C 0%, #E8654A 100%)',
+    dishes: [
+      {
+        name: 'Schweinshaxe',
+        image: '/images/cuisine/schweinshaxe.jpg',
+        destination: 'Munich',
+        slug: 'munich',
+        price: '12-18 EUR / $13-20 USD',
+        description: 'Crispy-skinned roasted pork knuckle served with Kartoffelknödel (potato dumplings) and Sauerkraut. Bavaria\'s most iconic dish — order one at Augustiner Keller or any traditional Wirtshaus in Munich.',
+        tag: 'Iconic',
+      },
+      {
+        name: 'Weißwurst',
+        image: '/images/cuisine/weisswurst.jpg',
+        destination: 'Munich',
+        slug: 'munich',
+        price: '4-8 EUR / $4-9 USD',
+        description: 'Delicate white veal sausage traditionally eaten before noon with sweet mustard and a fresh Breze (pretzel). A Munich breakfast ritual — peel the skin off and pair with a Weißbier.',
+        tag: 'Must-Try',
+      },
+      {
+        name: 'Spätzle',
+        image: '/images/cuisine/spaetzle.jpg',
+        destination: 'Stuttgart',
+        slug: 'stuttgart',
+        price: '8-14 EUR / $9-15 USD',
+        description: 'Swabian egg noodles served as Käsespätzle (with melted cheese and crispy onions) or as a side to roasts and stews. Germany\'s answer to mac and cheese — rich, cheesy, and irresistible.',
+        tag: 'Iconic',
+      },
+      {
+        name: 'Obatzda',
+        image: '/images/cuisine/obatzda.jpg',
+        destination: 'Munich',
+        slug: 'munich',
+        price: '5-8 EUR / $5-9 USD',
+        description: 'Creamy Bavarian cheese spread made from aged Camembert, butter, onions, and paprika, served with pretzels and radishes. The essential Biergarten snack — find it at every beer garden in Munich.',
+        tag: 'Heritage',
+      },
+      {
+        name: 'Breze (Pretzel)',
+        image: '/images/cuisine/breze.jpg',
+        destination: 'Throughout Bavaria',
+        slug: 'munich',
+        price: '1-3 EUR / $1-3 USD',
+        description: 'The Bavarian soft pretzel — dark, crusty outside, pillowy inside, with coarse salt crystals. Grab one fresh from any bakery for the ultimate on-the-go snack. Nothing like the American version.',
+        tag: 'Must-Try',
+      },
+      {
+        name: 'Schweinebraten',
+        image: '/images/cuisine/schweinebraten.jpg',
+        destination: 'Nuremberg',
+        slug: 'nuremberg',
+        price: '10-16 EUR / $11-17 USD',
+        description: 'Slow-roasted pork roast with dark beer gravy, served with Knödel (dumplings) and red cabbage. Sunday lunch perfection at any Franconian Gasthaus.',
+      },
+      {
+        name: 'Leberkäse',
+        image: '/images/cuisine/leberkaese.jpg',
+        destination: 'Munich',
+        slug: 'munich',
+        price: '3-5 EUR / $3-5 USD',
+        description: 'A thick slice of baked meatloaf served in a Semmel (roll) with sweet mustard. Bavaria\'s ultimate quick lunch — grab one from any bakery or butcher counter. Hot, savory, and deeply satisfying.',
+      },
+      {
+        name: 'Nürnberger Rostbratwurst',
+        image: '/images/cuisine/nuernberger.jpg',
+        destination: 'Nuremberg',
+        slug: 'nuremberg',
+        price: '8-12 EUR / $9-13 USD',
+        description: 'Tiny finger-sized bratwursts grilled over beechwood, served 6 or 12 at a time with Sauerkraut and potato salad. Protected by EU geographic designation — the real thing only comes from Nuremberg.',
+        tag: 'Iconic',
+      },
+    ],
+  },
+  {
+    region: 'Berlin & Northern Germany',
+    tagline: 'Street food culture, maritime flavors, international fusion, and the culinary creativity of Germany\'s capital',
+    gradient: 'linear-gradient(135deg, #0D7377 0%, #4DB6AC 100%)',
+    dishes: [
+      {
+        name: 'Currywurst',
+        image: '/images/cuisine/currywurst.jpg',
+        destination: 'Berlin',
+        slug: 'berlin',
+        price: '3-5 EUR / $3-5 USD',
+        description: 'Sliced pork sausage doused in curried ketchup and dusted with curry powder, served with fries or a Brötchen. Berlin\'s iconic street food since 1949 — Curry 36 and Konnopke\'s Imbiss are legendary.',
+        tag: 'Iconic',
+      },
+      {
+        name: 'Döner Kebab',
+        image: '/images/cuisine/doener.jpg',
+        destination: 'Berlin',
+        slug: 'berlin',
+        price: '5-8 EUR / $5-9 USD',
+        description: 'Spit-roasted meat (veal, chicken, or lamb) shaved into warm flatbread with salad, onions, and garlic or herb sauce. Invented in Berlin by Turkish immigrants — Germany\'s most popular street food.',
+        tag: 'Must-Try',
+      },
+      {
+        name: 'Fischbrötchen',
+        image: '/images/cuisine/fischbroetchen.jpg',
+        destination: 'Hamburg',
+        slug: 'hamburg',
+        price: '4-7 EUR / $4-8 USD',
+        description: 'Fresh fish sandwich — usually herring, smoked eel, or shrimp — on a crusty roll with onions and remoulade. Hamburg\'s signature snack, best eaten at the Fischmarkt or along the harbor.',
+        tag: 'Iconic',
+      },
+      {
+        name: 'Labskaus',
+        image: '/images/cuisine/labskaus.jpg',
+        destination: 'Hamburg',
+        slug: 'hamburg',
+        price: '10-14 EUR / $11-15 USD',
+        description: 'A hearty sailor\'s hash of corned beef, mashed potatoes, and beetroot, topped with a fried egg, rollmops (pickled herring), and pickles. Looks unusual, tastes incredible. A true Hamburg classic.',
+        tag: 'Heritage',
+      },
+      {
+        name: 'Berliner Pfannkuchen',
+        image: '/images/cuisine/berliner.jpg',
+        destination: 'Berlin',
+        slug: 'berlin',
+        price: '1.50-3 EUR / $2-3 USD',
+        description: 'A jam-filled doughnut dusted with powdered sugar — called a "Berliner" everywhere except Berlin, where it\'s simply a "Pfannkuchen." Traditional during Karneval season but available year-round.',
+      },
+      {
+        name: 'Grünkohl mit Pinkel',
+        image: '/images/cuisine/gruenkohl.jpg',
+        destination: 'Hamburg',
+        slug: 'hamburg',
+        price: '10-15 EUR / $11-16 USD',
+        description: 'Hearty kale stew slow-cooked with smoked sausage (Pinkel), kassler, and potatoes — the quintessential Northern German winter dish. Best from November to February at any traditional Gasthaus.',
+        tag: 'Heritage',
+      },
+    ],
+  },
+  {
+    region: 'Rhineland & Western Germany',
+    tagline: 'Wine-country cuisine, hearty stews, Sauerbraten, and the diverse flavors of Germany\'s western heartland',
+    gradient: 'linear-gradient(135deg, #1A2332 0%, #6A1B9A 50%, #D4A853 100%)',
+    dishes: [
+      {
+        name: 'Sauerbraten',
+        image: '/images/cuisine/sauerbraten.jpg',
+        destination: 'Cologne',
+        slug: 'cologne',
+        price: '14-20 EUR / $15-22 USD',
+        description: 'Beef marinated for days in vinegar and spices, then slow-braised until fork-tender with a sweet-sour gravy. Germany\'s quintessential pot roast — the Rhineland version uses raisins and Lebkuchen (gingerbread) in the sauce.',
+        tag: 'Iconic',
+      },
+      {
+        name: 'Himmel un Ääd',
+        image: '/images/cuisine/himmel-un-aaed.jpg',
+        destination: 'Cologne',
+        slug: 'cologne',
+        price: '10-14 EUR / $11-15 USD',
+        description: '"Heaven and Earth" — mashed potatoes with apple sauce, topped with fried blood sausage (Blutwurst) and crispy onions. A classic Cologne Brauhaus dish with a poetic name.',
+        tag: 'Heritage',
+      },
+      {
+        name: 'Flammkuchen',
+        image: '/images/cuisine/flammkuchen.jpg',
+        destination: 'Rhine Valley',
+        slug: 'rhine-valley',
+        price: '8-12 EUR / $9-13 USD',
+        description: 'Paper-thin crispy flatbread topped with crème fraîche, onions, and bacon — Germany\'s answer to pizza, originating from the Alsace-Rhine border region. Best paired with a glass of local Riesling.',
+        tag: 'Must-Try',
+      },
+      {
+        name: 'Reibekuchen',
+        image: '/images/cuisine/reibekuchen.jpg',
+        destination: 'Cologne',
+        slug: 'cologne',
+        price: '4-7 EUR / $4-8 USD',
+        description: 'Crispy potato pancakes served with apple sauce or smoked salmon. A Rhineland street food classic found at Christmas markets and festivals across the region.',
+        tag: 'Must-Try',
+      },
+      {
+        name: 'Rheinischer Döppekooche',
+        image: '/images/cuisine/doeppekooche.jpg',
+        destination: 'Rhine Valley',
+        slug: 'rhine-valley',
+        price: '9-14 EUR / $10-15 USD',
+        description: 'A rich potato cake baked in a cast-iron pot with bacon and onions — crispy on the outside, creamy inside. A Rhineland comfort food classic served at traditional wine taverns.',
+      },
+      {
+        name: 'Halver Hahn',
+        image: '/images/cuisine/halver-hahn.jpg',
+        destination: 'Cologne',
+        slug: 'cologne',
+        price: '5-8 EUR / $5-9 USD',
+        description: 'Despite the name ("half a rooster"), this is actually a rye bread roll with thick-cut aged Gouda, mustard, onions, and pickles. The classic Kölsch beer companion in every Cologne Brauhaus.',
+        tag: 'Heritage',
+      },
+    ],
+  },
+  {
+    region: 'Central & Eastern Germany',
+    tagline: 'Saxon pastries, Thuringian sausages, hearty dumplings, and the culinary revival of Germany\'s eastern regions',
+    gradient: 'linear-gradient(135deg, #E65100 0%, #FF9800 100%)',
+    dishes: [
+      {
+        name: 'Dresdner Eierschecke',
+        image: '/images/cuisine/eierschecke.jpg',
+        destination: 'Dresden',
+        slug: 'dresden',
+        price: '3-5 EUR / $3-5 USD per slice',
+        description: 'A three-layered cake with yeast dough, quark filling, and custard topping — Dresden\'s signature pastry. Find the best versions at the Konditorei along the Altstadt. Rich, creamy, and unforgettable.',
+        tag: 'Iconic',
+      },
+      {
+        name: 'Thüringer Rostbratwurst',
+        image: '/images/cuisine/thueringer.jpg',
+        destination: 'Leipzig',
+        slug: 'leipzig',
+        price: '3-5 EUR / $3-5 USD',
+        description: 'Grilled pork and herb sausage from Thuringia, cooked over charcoal and served in a Brötchen with mustard. Longer and spicier than Bavarian bratwurst — protected by EU designation.',
+        tag: 'Must-Try',
+      },
+      {
+        name: 'Leipziger Allerlei',
+        image: '/images/cuisine/leipziger-allerlei.jpg',
+        destination: 'Leipzig',
+        slug: 'leipzig',
+        price: '10-16 EUR / $11-17 USD',
+        description: 'An elegant medley of seasonal vegetables — asparagus, peas, carrots, morels, and crayfish tails — in a light cream sauce. Leipzig\'s classic dish, revived by modern Saxon restaurants.',
+        tag: 'Heritage',
+      },
+      {
+        name: 'Dresdner Stollen',
+        image: '/images/cuisine/stollen.jpg',
+        destination: 'Dresden',
+        slug: 'dresden',
+        price: '8-20 EUR / $9-22 USD per loaf',
+        description: 'Dense, buttery fruit bread loaded with dried fruits, marzipan, and dusted with powdered sugar. Dresden\'s famous Christmas cake — the Striezelmarkt has celebrated it since 1434.',
+        tag: 'Iconic',
+      },
+      {
+        name: 'Sächsische Kartoffelsuppe',
+        image: '/images/cuisine/kartoffelsuppe.jpg',
+        destination: 'Dresden',
+        slug: 'dresden',
+        price: '6-9 EUR / $7-10 USD',
+        description: 'Hearty Saxon potato soup with vegetables, sausage, and marjoram. Simple, warming, and deeply satisfying — the kind of dish every Oma (grandmother) has her own recipe for.',
+      },
+      {
+        name: 'Quarkkeulchen',
+        image: '/images/cuisine/quarkkeulchen.jpg',
+        destination: 'Leipzig',
+        slug: 'leipzig',
+        price: '4-7 EUR / $4-8 USD',
+        description: 'Sweet potato and quark pancakes, pan-fried until golden and served with apple sauce and cinnamon sugar. A Saxon comfort food classic found at markets and traditional restaurants.',
+        tag: 'Must-Try',
+      },
+    ],
+  },
+];
+---
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  pageType="destination"
+  schemaData={{ title: pageTitle, description: pageDescription }}
+  breadcrumbs={breadcrumbs}
+>
+  <!-- Hero -->
+  <header class="menu-hero">
+    <video class="menu-hero-video" autoplay muted loop playsinline preload="metadata">
+      <source src="/videos/pillar/cuisine-hero.mp4" type="video/mp4" />
+    </video>
+    <div class="menu-hero-gradient"></div>
+    <div class="menu-hero-noise"></div>
+    <div class="menu-hero-content">
+      <h1 class="menu-hero-title">The German Menu</h1>
+      <p class="menu-hero-subtitle">Crispy Schweinshaxe in Munich, Berlin Currywurst on the go, fresh Fischbrötchen in Hamburg — eat your way across four regions and discover the dishes that define each destination.</p>
+      <div class="menu-hero-meta">
+        <div class="menu-hero-meta-item">
+          <span class="menu-hero-meta-label">Dishes</span>
+          <span class="menu-hero-meta-value">32</span>
+        </div>
+        <div class="menu-hero-meta-item">
+          <span class="menu-hero-meta-label">Regions</span>
+          <span class="menu-hero-meta-value">4</span>
+        </div>
+        <div class="menu-hero-meta-item">
+          <span class="menu-hero-meta-label">Destinations</span>
+          <span class="menu-hero-meta-value">15</span>
+        </div>
+      </div>
+    </div>
+    <div class="menu-scroll-hint">Scroll<br />&#8595;</div>
+  </header>
+
+  <!-- Breadcrumb -->
+  <div class="container-content">
+    <Breadcrumb items={breadcrumbs} />
+  </div>
+
+  <!-- Personal intro -->
+  <section class="menu-personal reveal">
+    <div class="container-content">
+      <blockquote class="menu-personal-quote">
+        <p>German food changed everything for us. Our first trip, we stuck to tourist restaurants near the Brandenburg Gate and wondered what the fuss was about. Then we found a tiny Gasthaus in a back street of Kreuzberg where the cook brought out Schweinshaxe with crackling skin, fresh Kartoffelsalat, and a cold Helles that paired perfectly. That was the moment. Now the food is half the reason we go back, and we plan entire trips around regional dishes we haven't tried yet.</p>
+        <cite>— Scott &amp; Scott</cite>
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- Menu Intro -->
+  <section class="menu-intro reveal">
+    <div class="container-content">
+      <div class="menu-intro-card">
+        <p class="menu-intro-text">Think of this as your tasting menu for Germany. We've organized the country's essential dishes by region — <strong>Bavaria & Southern Germany</strong>, <strong>Berlin & Northern Germany</strong>, <strong>Rhineland & Western Germany</strong>, and <strong>Central & Eastern Germany</strong>. Click any dish to explore the destination where it's famous.</p>
+        <div class="menu-intro-legend">
+          <span class="menu-tag menu-tag--heritage">Heritage</span>
+          <span class="menu-tag menu-tag--musttry">Must-Try</span>
+          <span class="menu-tag menu-tag--iconic">Iconic</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Menu Sections by Region -->
+  {menu.map((section) => (
+    <section class="menu-region reveal">
+      <div class="container-content">
+        <div class="menu-region-header" style={`background: ${section.gradient};`}>
+          <div class="menu-region-header-inner">
+            <h2 class="menu-region-name">{section.region}</h2>
+            <p class="menu-region-tagline">{section.tagline}</p>
+            <span class="menu-region-count">{section.dishes.length} dishes</span>
+          </div>
+          <div class="menu-region-ornament">&#9733;</div>
+        </div>
+
+        <div class="menu-dish-grid">
+          {section.dishes.map((dish) => (
+            <a href={`/destinations/${dish.slug}/`} class="menu-dish-card">
+              <div class="menu-dish-media" style={`background: ${section.gradient};`}>
+                {dish.image && (
+                  <img src={dish.image} alt={`${dish.name} — ${dish.destination}`} class="menu-dish-img" loading="lazy" />
+                )}
+                {dish.tag && (
+                  <span class={`menu-tag menu-tag--${dish.tag.toLowerCase().replace(/[^a-z]/g, '')}`}>{dish.tag}</span>
+                )}
+              </div>
+              <div class="menu-dish-body">
+                <div class="menu-dish-top">
+                  <h3 class="menu-dish-name">{dish.name}</h3>
+                  <span class="menu-dish-price">{dish.price}</span>
+                </div>
+                <p class="menu-dish-destination">{dish.destination}</p>
+                <p class="menu-dish-desc">{dish.description}</p>
+                <span class="menu-dish-cta">Explore {dish.destination} &rarr;</span>
+              </div>
+              <div class="menu-dish-overlay">
+                <p class="menu-dish-overlay-desc">{dish.description}</p>
+                <span class="menu-dish-overlay-cta">Explore {dish.destination} &rarr;</span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  ))}
+
+  <!-- Bottom CTA -->
+  <section class="menu-cta-section reveal">
+    <div class="container-content">
+      <div class="menu-cta-card">
+        <h2 class="menu-cta-heading">Plan Your Food Trip</h2>
+        <p class="menu-cta-text">Tell our AI planner which dishes you want to try and it will build a region-by-region itinerary — with the best restaurants, markets, and street food stops.</p>
+        <a href="/plan/" class="menu-cta-button">Start Planning &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <FAQ items={[
+    { question: "What is Germany's most famous dish?", answer: "Schnitzel, Bratwurst, and Schweinshaxe are the most internationally recognized German dishes, but every region has its own signature. Bavarians swear by Weißwurst and Obatzda, Berliners by Currywurst and Döner, Cologne by Sauerbraten, and Dresden by Eierschecke. German food is deeply regional, and that's what makes exploring it so rewarding." },
+    { question: "Is German food the same across the country?", answer: "Not at all — German cuisine is intensely regional. Bavaria emphasizes hearty pork dishes, dumplings, and beer hall classics. Northern Germany favors maritime flavors — smoked fish, hearty stews, and sailor's dishes. The Rhineland has wine-country cuisine with Sauerbraten and potato dishes. Eastern Germany features Saxon pastries and Thuringian sausages. What you eat in Munich will be completely different from what you eat in Hamburg or Dresden." },
+    { question: "What are the must-try street foods in Germany?", answer: "Currywurst (3-5 EUR) and Döner Kebab (5-8 EUR) in Berlin, Fischbrötchen (4-7 EUR) in Hamburg, Nürnberger Rostbratwurst (8-12 EUR), Leberkäse in a roll (3-5 EUR) in Munich, and Breze/pretzels (1-3 EUR) everywhere in Bavaria. German street food is exceptional, affordable, and available on every corner." },
+    { question: "How much does a meal cost in Germany?", answer: "Street food: 3-8 EUR. A main dish at a casual Gasthaus: 10-18 EUR. A full meal with beer for two: 35-60 EUR. Fine dining: 60-120+ EUR per person. A daily food budget of 30-50 EUR covers three meals comfortably, including coffee and a beer. Germany offers excellent food value compared to many Western European countries." },
+    { question: "What should I know about dining etiquette in Germany?", answer: "Germans eat earlier than Southern Europeans — lunch at noon-1 PM, dinner from 6-8 PM. Service is efficient but not rushed. Say 'Guten Appetit' before eating. Tap water is not commonly served — order Mineralwasser (sparkling or still). The bill won't come until you ask — say 'Zahlen, bitte.' Tipping 5-10% is customary for good service. Many restaurants are cash-only or cash-preferred, so always carry some." },
+    { question: "What is the most famous German dessert?", answer: "Black Forest cake (Schwarzwälder Kirschtorte) is Germany's most internationally known dessert — layers of chocolate sponge, whipped cream, cherries, and Kirschwasser. But Dresdner Stollen (Christmas fruit bread), Bienenstich (bee sting cake), Apfelstrudel, and Berliner Pfannkuchen (jam doughnuts) are all beloved. Every Konditorei (pastry shop) showcases Germany's extraordinary cake and pastry tradition." },
+  ]} />
+
+  <!-- Email Capture -->
+  <div class="container-content reveal" style="padding-bottom: var(--space-6);">
+    <EmailCapture
+      leadMagnet="Get Our Free German Food Guide"
+      description="A region-by-region PDF guide to German cuisine — with the best restaurants, street food stalls, and dishes you can't miss."
+      bullets={[
+        'All 32 dishes with where to find the best version',
+        'Price guide — from 2 EUR street food to 70 EUR restaurant plates',
+        'Dining etiquette tips and ordering advice',
+        'Printable German food phrases for restaurants and bakeries',
+      ]}
+      guideTag="pillar-cuisine"
+    />
+  </div>
+
+  <!-- Cross-links -->
+  <section class="menu-crosslinks reveal">
+    <div class="container-content">
+      <h3 class="menu-crosslinks-heading">Explore More</h3>
+      <div class="menu-crosslinks-grid">
+        <a href="/festivals/" class="menu-crosslink-card">
+          <span class="menu-crosslink-icon">&#127914;</span>
+          <span class="menu-crosslink-label">Festival Calendar</span>
+          <span class="menu-crosslink-desc">Germany's best festivals and events, month by month</span>
+        </a>
+        <a href="/practical/" class="menu-crosslink-card">
+          <span class="menu-crosslink-icon">&#127890;</span>
+          <span class="menu-crosslink-label">Travel Tips</span>
+          <span class="menu-crosslink-desc">Visa, money, transport, and cultural etiquette</span>
+        </a>
+        <a href="/destinations/" class="menu-crosslink-card">
+          <span class="menu-crosslink-icon">&#127965;</span>
+          <span class="menu-crosslink-label">All Destinations</span>
+          <span class="menu-crosslink-desc">Every city and region we've explored with honest reviews</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<!-- Scroll Reveal Observer -->
+<script>
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add('visible');
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+    );
+    document.querySelectorAll('.reveal').forEach((el) => revealObserver.observe(el));
+  } else {
+    document.querySelectorAll('.reveal').forEach((el) => el.classList.add('visible'));
+  }
+</script>
+
+<style>
+  /* ================================================================
+     HERO — Warm, food-inspired gradient
+     ================================================================ */
+  .menu-hero {
+    position: relative;
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 5rem var(--space-6) 60px;
+    overflow: hidden;
+  }
+
+  .menu-hero-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+  }
+
+  .menu-hero-gradient {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.15) 40%, rgba(0,0,0,0.55) 100%);
+  }
+
+  .menu-hero-noise {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+  }
+
+  .menu-hero-content {
+    position: relative;
+    z-index: 3;
+    max-width: 720px;
+  }
+
+  .menu-hero-title {
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: var(--weight-bold);
+    color: #fff;
+    line-height: 1.1;
+    margin: 0 0 var(--space-3);
+  }
+
+  .menu-hero-subtitle {
+    font-size: clamp(1rem, 2vw, 1.15rem);
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.6;
+    margin: 0 0 var(--space-5);
+    max-width: 580px;
+  }
+
+  .menu-hero-meta {
+    display: flex;
+    gap: var(--space-5);
+    flex-wrap: wrap;
+  }
+
+  .menu-hero-meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .menu-hero-meta-label {
+    font-size: 0.65rem;
+    font-weight: var(--weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  .menu-hero-meta-value {
+    font-size: 1.1rem;
+    font-weight: var(--weight-bold);
+    color: #fff;
+  }
+
+  .menu-scroll-hint {
+    position: absolute;
+    bottom: 16px;
+    right: var(--space-6);
+    z-index: 3;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: rgba(255, 255, 255, 0.35);
+    text-align: center;
+    animation: menuBounce 2s ease-in-out infinite;
+  }
+
+  @keyframes menuBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(6px); }
+  }
+
+  /* ================================================================
+     MENU INTRO
+     ================================================================ */
+  .menu-intro {
+    padding: var(--space-8) 0 var(--space-4);
+  }
+
+  .menu-intro-card {
+    background: var(--color-white);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 16px;
+    padding: var(--space-5) var(--space-6);
+    text-align: center;
+  }
+
+  .menu-intro-text {
+    font-size: 1rem;
+    color: var(--color-slate);
+    line-height: 1.7;
+    max-width: 640px;
+    margin: 0 auto var(--space-4);
+  }
+
+  .menu-intro-legend {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+  }
+
+  /* ================================================================
+     TAGS
+     ================================================================ */
+  .menu-tag {
+    display: inline-block;
+    font-size: 0.6rem;
+    font-weight: var(--weight-bold);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 3px 8px;
+    border-radius: 6px;
+    line-height: 1.4;
+  }
+
+  .menu-tag--heritage {
+    background: rgba(191, 54, 12, 0.1);
+    color: #BF360C;
+  }
+
+  .menu-tag--musttry, .menu-tag--mustry {
+    background: rgba(13, 115, 119, 0.1);
+    color: var(--color-ocean-teal);
+  }
+
+  .menu-tag--iconic {
+    background: rgba(212, 168, 83, 0.15);
+    color: #9A7B2E;
+  }
+
+  .menu-tag--freshcatch {
+    background: rgba(33, 150, 243, 0.1);
+    color: #1565C0;
+  }
+
+  .menu-tag--rare {
+    background: rgba(106, 27, 154, 0.1);
+    color: #6A1B9A;
+  }
+
+  .menu-tag--pasalubong {
+    background: rgba(232, 101, 74, 0.1);
+    color: var(--color-warm-coral);
+  }
+
+  .menu-tag--legendary {
+    background: rgba(212, 168, 83, 0.15);
+    color: #9A7B2E;
+  }
+
+  .menu-tag--nationaldish {
+    background: rgba(191, 54, 12, 0.1);
+    color: #BF360C;
+  }
+
+  /* ================================================================
+     REGION SECTION
+     ================================================================ */
+  .menu-region {
+    padding: var(--space-6) 0;
+  }
+
+  .menu-region-header {
+    position: relative;
+    border-radius: 20px;
+    padding: var(--space-6) var(--space-6);
+    margin-bottom: var(--space-6);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .menu-region-header-inner {
+    position: relative;
+    z-index: 1;
+  }
+
+  .menu-region-name {
+    font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+    font-weight: var(--weight-bold);
+    color: #fff;
+    margin: 0 0 var(--space-1);
+    line-height: 1.1;
+  }
+
+  .menu-region-tagline {
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.8);
+    margin: 0 0 var(--space-3);
+    max-width: 480px;
+    line-height: 1.5;
+  }
+
+  .menu-region-count {
+    font-size: 0.7rem;
+    font-weight: var(--weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(255, 255, 255, 0.55);
+    background: rgba(255, 255, 255, 0.1);
+    padding: 4px 12px;
+    border-radius: 20px;
+  }
+
+  .menu-region-ornament {
+    font-size: 3rem;
+    color: rgba(255, 255, 255, 0.08);
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ================================================================
+     DISH GRID — Menu-style cards
+     ================================================================ */
+  .menu-dish-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-4);
+  }
+
+  @media (min-width: 1024px) {
+    .menu-dish-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .menu-dish-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .menu-dish-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background: var(--color-white);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 14px;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .menu-dish-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+  }
+
+  /* Media placeholder */
+  .menu-dish-media {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+    padding: var(--space-2);
+    overflow: hidden;
+  }
+
+  .menu-dish-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+    transition: transform 0.4s ease;
+  }
+
+  .menu-dish-card:hover .menu-dish-img {
+    transform: scale(1.06);
+  }
+
+  .menu-dish-media .menu-tag {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Card body */
+  .menu-dish-body {
+    padding: var(--space-3) var(--space-4) var(--space-4);
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .menu-dish-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--space-2);
+    margin-bottom: 4px;
+  }
+
+  .menu-dish-name {
+    font-size: 0.95rem;
+    font-weight: var(--weight-bold);
+    color: var(--color-deep-night);
+    margin: 0;
+    line-height: 1.25;
+  }
+
+  .menu-dish-price {
+    font-size: 0.65rem;
+    font-weight: var(--weight-semibold);
+    color: var(--color-warm-coral);
+    white-space: nowrap;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .menu-dish-destination {
+    font-size: 0.72rem;
+    color: var(--color-ocean-teal);
+    font-weight: var(--weight-medium);
+    margin: 0 0 var(--space-2);
+  }
+
+  .menu-dish-desc {
+    font-size: 0.78rem;
+    color: var(--color-slate);
+    line-height: 1.55;
+    margin: 0 0 var(--space-3);
+    flex: 1;
+  }
+
+  .menu-dish-cta {
+    font-size: 0.72rem;
+    font-weight: var(--weight-semibold);
+    color: var(--color-ocean-teal);
+    letter-spacing: 0.02em;
+  }
+
+  /* Hover overlay — visible on non-touch hover */
+  .menu-dish-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(26, 35, 50, 0.93);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: var(--space-5);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+
+  .menu-dish-card:hover .menu-dish-overlay {
+    opacity: 1;
+  }
+
+  .menu-dish-overlay-desc {
+    font-size: 0.82rem;
+    color: rgba(255, 255, 255, 0.92);
+    line-height: 1.6;
+    margin: 0 0 var(--space-3);
+  }
+
+  .menu-dish-overlay-cta {
+    font-size: 0.75rem;
+    font-weight: var(--weight-semibold);
+    color: var(--color-warm-coral);
+  }
+
+  /* ================================================================
+     BOTTOM CTA
+     ================================================================ */
+  .menu-cta-section {
+    padding: var(--space-6) 0 var(--space-8);
+  }
+
+  .menu-cta-card {
+    background: linear-gradient(135deg, var(--color-deep-night) 0%, #2D3748 100%);
+    border-radius: 20px;
+    padding: var(--space-8) var(--space-6);
+    text-align: center;
+    color: #fff;
+  }
+
+  .menu-cta-heading {
+    font-size: clamp(1.3rem, 3vw, 1.8rem);
+    font-weight: var(--weight-bold);
+    margin: 0 0 var(--space-3);
+    color: #fff;
+  }
+
+  .menu-cta-text {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.75);
+    max-width: 520px;
+    margin: 0 auto var(--space-5);
+    line-height: 1.6;
+  }
+
+  .menu-cta-button {
+    display: inline-block;
+    background: var(--color-warm-coral);
+    color: #fff;
+    font-size: 0.9rem;
+    font-weight: var(--weight-semibold);
+    padding: 12px 28px;
+    border-radius: 40px;
+    text-decoration: none;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+
+  .menu-cta-button:hover {
+    background: #d4553b;
+    transform: translateY(-2px);
+  }
+
+  /* ================================================================
+     CROSS-LINKS
+     ================================================================ */
+  .menu-crosslinks {
+    padding: 0 0 var(--space-10);
+  }
+
+  .menu-crosslinks-heading {
+    font-size: 1.1rem;
+    font-weight: var(--weight-bold);
+    color: var(--color-deep-night);
+    text-align: center;
+    margin: 0 0 var(--space-4);
+  }
+
+  .menu-crosslinks-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-4);
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 640px) {
+    .menu-crosslinks-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .menu-crosslink-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-5) var(--space-4);
+    background: var(--color-white);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 16px;
+    text-decoration: none;
+    color: inherit;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .menu-crosslink-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  }
+
+  .menu-crosslink-icon {
+    font-size: 1.8rem;
+  }
+
+  .menu-crosslink-label {
+    font-size: 0.95rem;
+    font-weight: var(--weight-bold);
+    color: var(--color-deep-night);
+  }
+
+  .menu-crosslink-desc {
+    font-size: 0.78rem;
+    color: var(--color-slate);
+    line-height: 1.4;
+  }
+
+  /* ================================================================
+     RESPONSIVE — Hero & misc
+     ================================================================ */
+  @media (max-width: 640px) {
+    .menu-hero {
+      min-height: 55vh;
+      padding: 0 var(--space-4) 40px;
+    }
+
+    .menu-hero-meta {
+      gap: var(--space-4);
+    }
+
+    .menu-scroll-hint {
+      display: none;
+    }
+
+    .menu-region-header {
+      padding: var(--space-5) var(--space-4);
+    }
+
+    .menu-region-ornament {
+      display: none;
+    }
+  }
+
+  /* Personal intro */
+  .menu-personal {
+    padding-block: var(--space-8);
+  }
+
+  .menu-personal-quote {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: var(--space-6) var(--space-8);
+    border-left: 4px solid var(--color-warm-coral);
+    background: var(--color-sky);
+    border-radius: 0 12px 12px 0;
+  }
+
+  .menu-personal-quote p {
+    font-size: var(--text-body);
+    color: var(--color-heading);
+    line-height: var(--leading-body);
+    font-style: italic;
+    margin-bottom: var(--space-3);
+  }
+
+  .menu-personal-quote cite {
+    font-size: var(--text-caption);
+    color: var(--color-warm-coral);
+    font-weight: var(--weight-semibold);
+    font-style: normal;
+  }
+</style>

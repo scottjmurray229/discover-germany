@@ -1,0 +1,184 @@
+{
+  "destinations": {
+    "berlin": {
+      "title": "Berlin",
+      "tagline": "History, Culture, and Creativity Collide",
+      "region": "eastern-germany",
+      "bestMonths": ["May", "Jun", "Jul", "Aug", "Sep"],
+      "budgetPerDay": { "backpacker": 45, "midRange": 120, "luxury": 300 },
+      "gettingThere": "Fly to Berlin Brandenburg (BER). FEX train to Hauptbahnhof in 30 minutes.",
+      "highlights": ["Brandenburg Gate", "Museum Island", "Berlin Wall Memorial", "East Side Gallery", "Reichstag"],
+      "essentials": {
+        "gettingAround": "U-Bahn/S-Bahn metro, buses, tram. Day ticket EUR 8.80. Berlin WelcomeCard available.",
+        "airport": "Berlin Brandenburg (BER)",
+        "trainConnections": ["Hamburg (1.5 hr)", "Dresden (2 hr)", "Munich (4 hr)"],
+        "language": "German"
+      }
+    },
+    "munich": {
+      "title": "Munich",
+      "tagline": "Beer Gardens, Baroque Palaces, and Alpine Views",
+      "region": "bavaria",
+      "bestMonths": ["May", "Jun", "Jul", "Aug", "Sep", "Oct"],
+      "budgetPerDay": { "backpacker": 50, "midRange": 140, "luxury": 350 },
+      "gettingThere": "Fly to Munich Airport (MUC). S-Bahn S1/S8 to Marienplatz in 40 minutes.",
+      "highlights": ["Marienplatz & Glockenspiel", "English Garden", "Neuschwanstein Castle day trip", "Viktualienmarkt", "Hofbräuhaus"],
+      "essentials": {
+        "gettingAround": "U-Bahn/S-Bahn, tram, bus. Day ticket EUR 8.80. Bayern Ticket for regional trains.",
+        "airport": "Munich (MUC)",
+        "trainConnections": ["Berlin (4 hr)", "Nuremberg (1 hr)", "Stuttgart (2 hr)", "Salzburg (1.5 hr)"],
+        "language": "German (Bavarian dialect)"
+      }
+    },
+    "hamburg": {
+      "title": "Hamburg",
+      "tagline": "Germany's Gateway to the World",
+      "region": "northern-germany",
+      "bestMonths": ["May", "Jun", "Jul", "Aug", "Sep"],
+      "budgetPerDay": { "backpacker": 45, "midRange": 130, "luxury": 320 },
+      "gettingThere": "Fly to Hamburg Airport (HAM). S-Bahn S1 to Hauptbahnhof in 25 minutes.",
+      "highlights": ["Speicherstadt", "Elbphilharmonie", "Miniatur Wunderland", "St. Pauli & Reeperbahn", "Harbor cruise"],
+      "essentials": {
+        "gettingAround": "U-Bahn/S-Bahn, buses, harbor ferries. Day ticket EUR 8.20.",
+        "airport": "Hamburg (HAM)",
+        "trainConnections": ["Berlin (1.5 hr)", "Cologne (4 hr)", "Lübeck (45 min)"],
+        "language": "German"
+      }
+    },
+    "cologne": {
+      "title": "Cologne",
+      "tagline": "Cathedral City on the Rhine",
+      "region": "rhineland",
+      "bestMonths": ["Apr", "May", "Jun", "Jul", "Aug", "Sep"],
+      "budgetPerDay": { "backpacker": 40, "midRange": 120, "luxury": 280 },
+      "gettingThere": "Fly to Cologne/Bonn Airport (CGN). S-Bahn S13 to Hauptbahnhof in 15 minutes.",
+      "highlights": ["Cologne Cathedral", "Old Town & Kölsch beer", "Hohenzollern Bridge", "Museum Ludwig", "Chocolate Museum"],
+      "essentials": {
+        "gettingAround": "U-Bahn/S-Bahn, tram. Day ticket EUR 7.70. Compact walkable center.",
+        "airport": "Cologne/Bonn (CGN)",
+        "trainConnections": ["Düsseldorf (30 min)", "Bonn (20 min)", "Frankfurt (1 hr)"],
+        "language": "German (Kölsch dialect)"
+      }
+    },
+    "dresden": {
+      "title": "Dresden",
+      "tagline": "The Florence of the Elbe",
+      "region": "eastern-germany",
+      "bestMonths": ["May", "Jun", "Jul", "Aug", "Sep"],
+      "budgetPerDay": { "backpacker": 35, "midRange": 100, "luxury": 250 },
+      "gettingThere": "Fly to Dresden (DRS) or train from Berlin (2 hours).",
+      "highlights": ["Frauenkirche", "Zwinger Palace", "Semper Opera", "Green Vault", "Brühl's Terrace"],
+      "essentials": {
+        "gettingAround": "Tram network, buses. Day ticket EUR 7.00. Compact walkable old town.",
+        "airport": "Dresden (DRS)",
+        "trainConnections": ["Berlin (2 hr)", "Leipzig (1 hr)", "Prague (2 hr)"],
+        "language": "German (Saxon dialect)"
+      }
+    },
+    "heidelberg": {
+      "title": "Heidelberg",
+      "tagline": "Romance on the Neckar",
+      "region": "central-germany",
+      "bestMonths": ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct"],
+      "budgetPerDay": { "backpacker": 40, "midRange": 120, "luxury": 280 },
+      "gettingThere": "Train from Frankfurt Airport (35 minutes) or fly to Stuttgart (STS, 1.5 hours by train).",
+      "highlights": ["Heidelberg Castle", "Old Bridge", "Philosophers' Walk", "University quarter", "Hauptstraße shopping"],
+      "essentials": {
+        "gettingAround": "Walking, buses, tram. Day ticket EUR 7.30. Funicular to castle.",
+        "airport": "Nearest: Frankfurt (FRA)",
+        "trainConnections": ["Frankfurt (50 min)", "Stuttgart (40 min)", "Mannheim (15 min)"],
+        "language": "German"
+      }
+    },
+    "rothenburg": {
+      "title": "Rothenburg ob der Tauber",
+      "tagline": "Medieval Fairy Tale on the Romantic Road",
+      "region": "bavaria",
+      "bestMonths": ["Apr", "May", "Jun", "Sep", "Oct", "Dec"],
+      "budgetPerDay": { "backpacker": 40, "midRange": 110, "luxury": 250 },
+      "gettingThere": "Train from Nuremberg (1.5 hours with transfer) or Munich (2.5 hours).",
+      "highlights": ["Plönlein", "Medieval Town Wall walk", "Christmas Museum", "Night Watchman Tour", "Schneeballen pastry"],
+      "essentials": {
+        "gettingAround": "Walking — the entire old town is pedestrian-friendly and compact.",
+        "airport": "Nearest: Nuremberg (NUE) or Frankfurt (FRA)",
+        "trainConnections": ["Nuremberg (1.5 hr)", "Würzburg (1 hr)"],
+        "language": "German (Franconian dialect)"
+      }
+    },
+    "black-forest": {
+      "title": "Black Forest",
+      "tagline": "Cuckoo Clocks, Cake, and Deep Green Valleys",
+      "region": "central-germany",
+      "bestMonths": ["May", "Jun", "Jul", "Aug", "Sep", "Oct"],
+      "budgetPerDay": { "backpacker": 40, "midRange": 110, "luxury": 280 },
+      "gettingThere": "Fly to Basel (BSL), Strasbourg (SXB), or Stuttgart (STR). Drive or train to Freiburg.",
+      "highlights": ["Triberg Waterfalls", "Freiburg", "Titisee Lake", "Black Forest cake", "Cuckoo clock workshops"],
+      "essentials": {
+        "gettingAround": "Rent a car — essential for exploring. KONUS guest card offers free public transport in the region.",
+        "airport": "Nearest: Basel (BSL), Stuttgart (STR)",
+        "trainConnections": ["Freiburg to Basel (45 min)", "Freiburg to Strasbourg (45 min)"],
+        "language": "German (Alemannic dialect)"
+      }
+    },
+    "rhine-valley": {
+      "title": "Rhine Valley",
+      "tagline": "Castles, Vineyards, and River Romance",
+      "region": "rhineland",
+      "bestMonths": ["May", "Jun", "Jul", "Aug", "Sep", "Oct"],
+      "budgetPerDay": { "backpacker": 40, "midRange": 120, "luxury": 300 },
+      "gettingThere": "Train from Frankfurt to Koblenz or Bingen. Rhine river cruise boats run daily.",
+      "highlights": ["Lorelei Rock", "Marksburg Castle", "Rhine river cruise", "Riesling wine tasting", "Rüdesheim"],
+      "essentials": {
+        "gettingAround": "Rhine river boats (KD Line), regional trains along both banks. Day ticket available.",
+        "airport": "Nearest: Frankfurt (FRA)",
+        "trainConnections": ["Frankfurt (1 hr to Koblenz)", "Cologne (1 hr from Koblenz)"],
+        "language": "German"
+      }
+    },
+    "nuremberg": {
+      "title": "Nuremberg",
+      "tagline": "Medieval Grandeur and Sobering History",
+      "region": "bavaria",
+      "bestMonths": ["Apr", "May", "Jun", "Sep", "Oct", "Dec"],
+      "budgetPerDay": { "backpacker": 35, "midRange": 110, "luxury": 260 },
+      "gettingThere": "Fly to Nuremberg (NUE) or train from Munich (1 hour).",
+      "highlights": ["Imperial Castle", "Albrecht Dürer's House", "Hauptmarkt & Christkindlesmarkt", "Documentation Center", "Bratwurst culture"],
+      "essentials": {
+        "gettingAround": "U-Bahn, tram, bus. Day ticket EUR 8.30. Old town is walkable.",
+        "airport": "Nuremberg (NUE)",
+        "trainConnections": ["Munich (1 hr)", "Rothenburg (1.5 hr)", "Bamberg (40 min)"],
+        "language": "German (Franconian dialect)"
+      }
+    },
+    "stuttgart": {
+      "title": "Stuttgart",
+      "tagline": "Engineering Marvels and Wine Country",
+      "region": "central-germany",
+      "bestMonths": ["May", "Jun", "Jul", "Aug", "Sep", "Oct"],
+      "budgetPerDay": { "backpacker": 40, "midRange": 120, "luxury": 300 },
+      "gettingThere": "Fly to Stuttgart (STR). S-Bahn S2/S3 to Hauptbahnhof in 30 minutes.",
+      "highlights": ["Mercedes-Benz Museum", "Porsche Museum", "Schlossplatz", "Cannstatter Volksfest", "Swabian cuisine"],
+      "essentials": {
+        "gettingAround": "U-Bahn/S-Bahn, buses. Day ticket EUR 7.90. StuttCard for museums.",
+        "airport": "Stuttgart (STR)",
+        "trainConnections": ["Munich (2 hr)", "Heidelberg (40 min)", "Frankfurt (1.5 hr)"],
+        "language": "German (Swabian dialect)"
+      }
+    },
+    "leipzig": {
+      "title": "Leipzig",
+      "tagline": "City of Music, Books, and Revolution",
+      "region": "eastern-germany",
+      "bestMonths": ["May", "Jun", "Jul", "Aug", "Sep"],
+      "budgetPerDay": { "backpacker": 30, "midRange": 90, "luxury": 220 },
+      "gettingThere": "Fly to Leipzig/Halle (LEJ) or train from Berlin (1 hour).",
+      "highlights": ["St. Thomas Church (Bach)", "Nikolaikirche", "Stasi Museum", "Spinnerei art district", "Leipzig Gewandhaus concerts"],
+      "essentials": {
+        "gettingAround": "Tram network, buses. Day ticket EUR 8.00. Compact walkable center.",
+        "airport": "Leipzig/Halle (LEJ)",
+        "trainConnections": ["Berlin (1 hr)", "Dresden (1 hr)", "Erfurt (1 hr)"],
+        "language": "German (Saxon dialect)"
+      }
+    }
+  }
+}

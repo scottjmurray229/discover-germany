@@ -1,0 +1,118 @@
+{
+  "name": "Germany Highlights",
+  "subtitle": "Berlin to Dresden to Munich",
+  "dates": "Jun 5, 2026 - Jun 12, 2026",
+  "days": [
+    {
+      "day": 1,
+      "date": "Fri, Jun 5",
+      "title": "Welcome to Berlin",
+      "location": "Berlin",
+      "items": [
+        { "id": "d1-1", "time": "10:00 AM", "icon": "✈️", "type": "transport", "title": "Arrive Berlin Brandenburg", "detail": "Land at BER, take FEX train to Hauptbahnhof (€4, 30 min)", "status": "confirmed" },
+        { "id": "d1-2", "time": "1:00 PM", "icon": "🏨", "type": "accommodation", "title": "Check into Hotel Mitte", "detail": "Boutique hotel near Museum Island (€110/night)", "status": "confirmed" },
+        { "id": "d1-3", "time": "3:00 PM", "icon": "🏛️", "type": "activity", "title": "Brandenburg Gate & Reichstag", "detail": "Walk through the Gate, visit the glass dome (free, book ahead)", "status": "confirmed" },
+        { "id": "d1-4", "time": "7:30 PM", "icon": "🍽️", "type": "food", "title": "Dinner in Mitte", "detail": "Schnitzel and Berliner Weisse at a traditional Gasthaus (€20pp)", "status": "confirmed" }
+      ]
+    },
+    {
+      "day": 2,
+      "date": "Sat, Jun 6",
+      "title": "Berlin History & Culture",
+      "location": "Berlin",
+      "items": [
+        { "id": "d2-1", "time": "9:00 AM", "icon": "🏛️", "type": "activity", "title": "Museum Island", "detail": "Pergamon Museum & Neues Museum. Combined ticket €22", "status": "confirmed", "lat": 52.5169, "lng": 13.4019 },
+        { "id": "d2-2", "time": "1:00 PM", "icon": "🍽️", "type": "food", "title": "Currywurst at Curry 36", "detail": "Berlin's iconic street food (€4)", "status": "confirmed" },
+        { "id": "d2-3", "time": "2:30 PM", "icon": "🏛️", "type": "activity", "title": "Berlin Wall Memorial", "detail": "Bernauer Straße memorial and documentation center (free)", "status": "confirmed" },
+        { "id": "d2-4", "time": "5:00 PM", "icon": "🏛️", "type": "activity", "title": "East Side Gallery", "detail": "1.3km of murals on the remaining Wall section (free)", "status": "confirmed" }
+      ]
+    },
+    {
+      "day": 3,
+      "date": "Sun, Jun 7",
+      "title": "Train to Dresden",
+      "location": "Dresden",
+      "items": [
+        { "id": "d3-1", "time": "9:00 AM", "icon": "🚂", "type": "transport", "title": "ICE Train to Dresden", "detail": "Berlin Hbf to Dresden Hbf, 2 hours (€30-50)", "status": "confirmed" },
+        { "id": "d3-2", "time": "12:00 PM", "icon": "🏨", "type": "accommodation", "title": "Check into Altstadt hotel", "detail": "Historic hotel near Frauenkirche (€95/night)", "status": "confirmed" },
+        { "id": "d3-3", "time": "2:00 PM", "icon": "🏛️", "type": "activity", "title": "Frauenkirche & Neumarkt", "detail": "Rebuilt baroque church with stunning dome views (free, dome €8)", "status": "confirmed" },
+        { "id": "d3-4", "time": "5:00 PM", "icon": "🏛️", "type": "activity", "title": "Zwinger Palace", "detail": "Baroque palace with Old Masters Gallery (€14)", "status": "confirmed" }
+      ]
+    },
+    {
+      "day": 4,
+      "date": "Mon, Jun 8",
+      "title": "Dresden Treasures",
+      "location": "Dresden",
+      "items": [
+        { "id": "d4-1", "time": "9:00 AM", "icon": "🏛️", "type": "activity", "title": "Green Vault", "detail": "Europe's most dazzling treasure chamber (€14, book ahead)", "status": "confirmed" },
+        { "id": "d4-2", "time": "2:00 PM", "icon": "🧭", "type": "activity", "title": "Brühl's Terrace walk", "detail": "The 'Balcony of Europe' along the Elbe riverfront", "status": "confirmed" },
+        { "id": "d4-3", "time": "7:00 PM", "icon": "🍽️", "type": "food", "title": "Saxon cuisine dinner", "detail": "Sauerbraten and Eierschecke at a traditional restaurant (€25pp)", "status": "confirmed" }
+      ]
+    },
+    {
+      "day": 5,
+      "date": "Tue, Jun 9",
+      "title": "Travel to Munich",
+      "location": "Munich",
+      "items": [
+        { "id": "d5-1", "time": "8:00 AM", "icon": "🚂", "type": "transport", "title": "ICE Train to Munich", "detail": "Dresden to München Hbf, 4.5 hours (€50-80)", "status": "confirmed" },
+        { "id": "d5-2", "time": "1:30 PM", "icon": "🏨", "type": "accommodation", "title": "Check into Altstadt hotel", "detail": "Hotel near Marienplatz (€130/night)", "status": "confirmed" },
+        { "id": "d5-3", "time": "3:00 PM", "icon": "🏛️", "type": "activity", "title": "Marienplatz & Glockenspiel", "detail": "Watch the famous clock show, explore Viktualienmarkt", "status": "confirmed" },
+        { "id": "d5-4", "time": "7:00 PM", "icon": "🍺", "type": "food", "title": "Hofbräuhaus", "detail": "Iconic beer hall — Weißwurst, Bretzel, and a Maß Bier (€20pp)", "status": "confirmed" }
+      ]
+    },
+    {
+      "day": 6,
+      "date": "Wed, Jun 10",
+      "title": "Neuschwanstein Day Trip",
+      "location": "Munich",
+      "items": [
+        { "id": "d6-1", "time": "7:30 AM", "icon": "🚂", "type": "transport", "title": "Train to Füssen", "detail": "Bayern Ticket (€27) covers the round trip, 2 hours each way", "status": "confirmed" },
+        { "id": "d6-2", "time": "11:00 AM", "icon": "🏰", "type": "activity", "title": "Neuschwanstein Castle", "detail": "The fairy-tale castle. Guided tour €15, book in advance!", "status": "confirmed", "lat": 47.5576, "lng": 10.7498 },
+        { "id": "d6-3", "time": "7:00 PM", "icon": "🍽️", "type": "food", "title": "Beer garden dinner", "detail": "Schweinshaxe and Kartoffelsalat in the English Garden (€18pp)", "status": "confirmed" }
+      ]
+    },
+    {
+      "day": 7,
+      "date": "Thu, Jun 11",
+      "title": "Munich Culture",
+      "location": "Munich",
+      "items": [
+        { "id": "d7-1", "time": "10:00 AM", "icon": "🏛️", "type": "activity", "title": "English Garden & Surfing", "detail": "Watch the famous river surfers at the Eisbachwelle (free)", "status": "confirmed" },
+        { "id": "d7-2", "time": "1:00 PM", "icon": "🍽️", "type": "food", "title": "Farewell Bavarian lunch", "detail": "Weißwurst and sweet mustard at Schneider Bräuhaus (€15pp)", "status": "confirmed" }
+      ]
+    },
+    {
+      "day": 8,
+      "date": "Fri, Jun 12",
+      "title": "Departure",
+      "location": "Munich",
+      "items": [
+        { "id": "d8-1", "time": "10:00 AM", "icon": "✈️", "type": "transport", "title": "Fly home from Munich", "detail": "MUC departure. Auf Wiedersehen, Germany!", "status": "confirmed" }
+      ]
+    }
+  ],
+  "weather": [
+    { "day": "Fri", "icon": "☀️", "high": 22, "low": 12, "rain": 10 },
+    { "day": "Sat", "icon": "⛅", "high": 23, "low": 13, "rain": 20 },
+    { "day": "Sun", "icon": "☀️", "high": 24, "low": 14, "rain": 5 },
+    { "day": "Mon", "icon": "☀️", "high": 25, "low": 14, "rain": 10 },
+    { "day": "Tue", "icon": "☀️", "high": 24, "low": 13, "rain": 5 },
+    { "day": "Wed", "icon": "⛅", "high": 22, "low": 11, "rain": 15 },
+    { "day": "Thu", "icon": "☀️", "high": 24, "low": 13, "rain": 5 },
+    { "day": "Fri", "icon": "☀️", "high": 23, "low": 12, "rain": 10 }
+  ],
+  "contacts": [
+    { "icon": "🚨", "name": "German Emergency", "role": "Emergency Services", "phone": "112" },
+    { "icon": "🏥", "name": "Police", "role": "Non-Emergency", "phone": "110" },
+    { "icon": "🚂", "name": "Deutsche Bahn", "role": "Train Info", "phone": "030-2970" }
+  ],
+  "group": [
+    { "id": "you", "name": "You", "avatar": "🧑", "role": "host", "color": "#0D7377" }
+  ],
+  "notifications": [
+    { "id": 1, "type": "enriched", "text": "Your 8-day Germany itinerary is ready! 26 activities across 3 destinations.", "time": "Just now", "read": false }
+  ],
+  "changeLog": []
+}
