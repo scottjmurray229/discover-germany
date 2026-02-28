@@ -26,7 +26,7 @@ lastVerified: 2026-02-27
 contentStatus: published
 draft: false
 fmContentType: destination
-faqs:
+faqItems:
   - question: "How many days do you need in Rothenburg ob der Tauber?"
     answer: "Most visitors find two full days ideal. One day covers the main sights like Plönlein, the town wall walk, and key museums. A second day lets you explore the Tauber Valley below, visit quieter churches, and truly soak in the atmosphere without rushing. Day-trippers miss the magic of evening when the tour groups leave."
   - question: "Is Rothenburg ob der Tauber worth visiting outside of Christmas season?"

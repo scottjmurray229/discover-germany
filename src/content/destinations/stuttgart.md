@@ -26,7 +26,7 @@ lastVerified: 2026-02-27
 contentStatus: published
 draft: false
 fmContentType: destination
-faqs:
+faqItems:
   - question: "Is Stuttgart worth visiting if I am not a car enthusiast?"
     answer: "Absolutely. While the Mercedes-Benz and Porsche museums are world-class, Stuttgart offers far more: superb art galleries including the Staatsgalerie, a thriving cultural scene with one of Europe's best ballet companies, excellent Swabian cuisine, beautiful surrounding wine country, and the massive Cannstatter Volksfest in autumn. The city's location in a valley ringed by vineyards and forested hills gives it a natural beauty that surprises many visitors."
   - question: "How does Cannstatter Volksfest compare to Munich's Oktoberfest?"

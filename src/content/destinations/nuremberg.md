@@ -26,7 +26,7 @@ lastVerified: 2026-02-27
 contentStatus: published
 draft: false
 fmContentType: destination
-faqs:
+faqItems:
   - question: "How many days should I spend in Nuremberg?"
     answer: "Two full days allow you to cover the major attractions comfortably: the castle, Dürer's House, the Old Town churches, and the Documentation Center on day one, and deeper exploration of neighborhoods, museums, and Franconian food culture on day two. If you visit during the Christmas market season, add a third day to fully enjoy the market atmosphere without rushing."
   - question: "Is Nuremberg just about its Nazi history?"

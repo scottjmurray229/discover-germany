@@ -26,7 +26,7 @@ lastVerified: 2026-02-27
 contentStatus: published
 draft: false
 fmContentType: destination
-faqs:
+faqItems:
   - question: "What is the best time to visit Heidelberg?"
     answer: "May, June, and September offer the most pleasant weather with temperatures of 18-25C and the lush greenery that makes the Neckar Valley so beautiful. Late spring brings blossoming gardens around the castle. September offers harvest season with wine festivals in the surrounding region. Summer (July-August) is warm but crowded. The Heidelberg Castle Illumination events — when fireworks light the castle and Old Bridge — happen three times in summer (June, July, September)."
   - question: "How do I get to Heidelberg Castle?"

@@ -26,7 +26,7 @@ lastVerified: 2026-02-27
 contentStatus: published
 draft: false
 fmContentType: destination
-faqs:
+faqItems:
   - question: "What is the best time to visit Cologne?"
     answer: "May through September offers warm weather and outdoor Kölsch drinking along the Rhine. If you want to experience Carnival (Karneval), visit during the week before Ash Wednesday (typically February or early March) — the city erupts into the largest street festival in Germany with costumes, parades, and round-the-clock celebrations. December brings the famous Cologne Christmas markets."
   - question: "What is Kölsch beer and where should I try it?"

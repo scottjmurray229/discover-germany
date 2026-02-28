@@ -26,7 +26,7 @@ lastVerified: 2026-02-27
 contentStatus: published
 draft: false
 fmContentType: destination
-faqs:
+faqItems:
   - question: "What is the best way to see the Rhine Valley?"
     answer: "The ideal approach combines a river cruise with train travel and hiking. Take the KD Rhine cruise between Rüdesheim and St. Goar (the most castle-dense stretch) to see the valley from water level, then use the regional trains that run along both banks to hop between villages. For the most rewarding perspective, hike a section of the Rheinsteig or Rheinburgenweg trails above the river, where you gain elevated views that no boat or train can match."
   - question: "How long should I spend in the Rhine Valley?"

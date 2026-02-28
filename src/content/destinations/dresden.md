@@ -26,7 +26,7 @@ lastVerified: 2026-02-27
 contentStatus: published
 draft: false
 fmContentType: destination
-faqs:
+faqItems:
   - question: "What is the best time to visit Dresden?"
     answer: "May, June, and September offer warm weather (18-25C), long days, and manageable crowds. The Dresden Music Festival in May and June brings world-class concerts to historic venues. December is magical for Christmas markets — the Striezelmarkt, Germany's oldest, has operated since 1434. Winter is cold but uncrowded, and the baroque architecture looks striking against gray skies and occasional snow."
   - question: "How was Dresden rebuilt after World War II?"

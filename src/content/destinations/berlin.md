@@ -26,7 +26,7 @@ lastVerified: 2026-02-27
 contentStatus: published
 draft: false
 fmContentType: destination
-faqs:
+faqItems:
   - question: "What is the best time to visit Berlin?"
     answer: "May, June, and September offer the ideal balance of warm weather (18-25C), long daylight hours, and manageable tourist crowds. July and August can be hot and packed, while winter brings Christmas markets but short, cold days. Berlin's indoor attractions — museums, galleries, clubs — make it viable year-round."
   - question: "How many days do you need in Berlin?"

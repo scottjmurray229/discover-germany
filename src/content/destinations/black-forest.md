@@ -26,7 +26,7 @@ lastVerified: 2026-02-27
 contentStatus: published
 draft: false
 fmContentType: destination
-faqs:
+faqItems:
   - question: "How many days should I spend in the Black Forest?"
     answer: "Plan for at least four to five days to experience the region properly. Spend one or two days in Freiburg, one day at Triberg and the surrounding villages, one day at Titisee and the southern highlands, and one day in Baden-Baden. If you are an avid hiker, you could easily spend a full week exploring the trail network without repeating a single path."
   - question: "What is the best way to get around the Black Forest?"

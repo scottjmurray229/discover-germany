@@ -26,7 +26,7 @@ lastVerified: 2026-02-27
 contentStatus: published
 draft: false
 fmContentType: destination
-faqs:
+faqItems:
   - question: "What is the best time to visit Hamburg?"
     answer: "May, June, and September offer the most pleasant weather with temperatures of 15-22C and the longest daylight hours. Hamburg's maritime climate means rain is possible year-round — always carry a light rain jacket. Summer brings harbor festivals and outdoor events. December has enchanting Christmas markets, particularly the one on the Rathaus plaza."
   - question: "How do I visit the Elbphilharmonie?"

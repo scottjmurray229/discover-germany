@@ -26,7 +26,7 @@ lastVerified: 2026-02-27
 contentStatus: published
 draft: false
 fmContentType: destination
-faqs:
+faqItems:
   - question: "How many days should I spend in Leipzig?"
     answer: "Three days is the sweet spot. Day one covers the historic center: Bach sites, Nikolaikirche, the Marktplatz, and Auerbachs Keller. Day two is for museums and art: the Spinnerei, the Museum of Fine Arts, and galleries in Plagwitz. Day three explores the creative neighborhoods, Karl-Liebknecht-Strasse, and the canals by kayak or paddleboard. Music lovers should add a fourth day to catch a Gewandhaus concert or Thomanerchor performance."
   - question: "Is Leipzig really as affordable as people say?"

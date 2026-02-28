@@ -26,7 +26,7 @@ lastVerified: 2026-02-27
 contentStatus: published
 draft: false
 fmContentType: destination
-faqs:
+faqItems:
   - question: "What is the best time to visit Munich?"
     answer: "June through September offers warm weather perfect for beer gardens and Alpine day trips. September to early October brings Oktoberfest. December is magical for Christmas markets. Shoulder months like May and October offer lower prices and pleasant weather. Winter (January-February) is cold but brings skiing access and cozy beer hall culture."
   - question: "Do I need to book Oktoberfest accommodation in advance?"
